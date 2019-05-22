@@ -1,4 +1,4 @@
-const Employee = require('../models/Employee');
+const { Employee } = require('../connection');
 
 module.exports = async (req, res) => {
     const { name } = req.query;
@@ -10,10 +10,7 @@ module.exports = async (req, res) => {
             .find()
             .populate({
                 path: 'skills',
-                populate: {
-                    path: 'skill',
-                    model: 'Skill'
-                }
+                model: 'Skill'
             });
         res.send(employees);
     }

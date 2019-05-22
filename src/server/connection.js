@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
-
-const opts = { user: 'app', pass: 'jtr5E' };
-module.exports = mongoose.createConnection(
-    '127.0.0.1',
-    'employeeUtil',
-    27017,
-    opts
+mongoose.Promise = global.Promise;
+mongoose.connect(
+    'mongodb://app:jtr5E@127.0.0.1:27017/employeeUtil',
+    { useMongoClient: true }
 );
 
-mongoose.Promise = global.Promise;
+const schemas = require('./schemas');
+
+module.exports = Object.keys(schemas).reduce((models, key) => {
+    const schema = schemas[key];
+    models[key] = mongoose.model(key, schema);
+
+    return models;
+}, {});
