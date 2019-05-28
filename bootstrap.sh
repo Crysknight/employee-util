@@ -12,13 +12,17 @@ echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 
-# Install initial database
-sudo mongorestore --db admin --restoreDbUsersAndRoles /vagrant/db/admin
-sudo mongorestore --db employeeUtil --restoreDbUsersAndRoles /vagrant/db/employeeUtil
-sudo cp /vagrant/db/mongod.conf /etc
-
 # Start and enable the Mongo service so that it automatically starts every time you start the machine
 sudo systemctl start mongod.service
 sudo systemctl enable mongod.service
+
+# Install initial database
+sudo mongorestore --db admin /vagrant/db/admin
+sudo mongorestore --db employeeUtil /vagrant/db/employeeUtil
+sudo cp /vagrant/db/mongod.conf /etc
+
+# Restarting mongod
+sudo systemctl stop mongod.service
+sudo systemctl start mongod.service
 
 sudo npm i -g pm2
