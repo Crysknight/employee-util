@@ -26,3 +26,12 @@ sudo systemctl stop mongod.service
 sudo systemctl start mongod.service
 
 sudo npm i -g pm2
+sudo npm install -g @vue/cli
+
+cd /vagrant/src/front
+npm i
+npm run build
+
+cd /vagrant/src/server
+npm i
+sudo pm2 start index.js
