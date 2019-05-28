@@ -3,6 +3,7 @@
         <form
             ref="addEmployeeForm"
             class="eu-add-employee__form"
+            @submit.prevent="createEmployee({ name, isMentor, avatar })"
         >
             <EUInput
                 placeholder="Имя"
@@ -17,6 +18,7 @@
                 label="Аватар"
                 v-model="avatar"
             />
+            <EUButton noShadow type="submit">Создать</EUButton>
         </form>
     </div>
 </template>
@@ -30,6 +32,9 @@ export default {
             isMentor: false,
             avatar: null
         };
+    },
+    methods: {
+        ...mapActions('employees', ['createEmployee'])
     }
 };
 </script>

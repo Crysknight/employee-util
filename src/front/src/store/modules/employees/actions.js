@@ -1,9 +1,10 @@
-import { axios } from 'plugins';
+import { axios, router } from 'plugins';
 
 import {
     MUTATION_SET_EMPLOYEES,
     MUTATION_ADD_SKILL_RATE,
-    MUTATION_CHANGE_SKILL_RATE
+    MUTATION_CHANGE_SKILL_RATE,
+    MUTATION_ADD_EMPLOYEE
 } from 'constants';
 
 export default {
@@ -27,6 +28,25 @@ export default {
             } else {
                 commit(MUTATION_CHANGE_SKILL_RATE, { skill, rate });
             }
+        }
+    },
+    async createEmployee({ commit }, { name, isMentor, avatar }) {
+        const employee = await axios.post('employee', { name, isMentor });
+
+        const { _id: employeeId } = employee;
+        const formData = new FormData();
+        formData.append('employeeId', employeeId);
+        formData.append('avatar', avatar);
+
+        const savedAvatar = await axios.post(
+            'avatar',
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        if (savedAvatar) {
+            employee.avatar = savedAvatar;
+            commit(MUTATION_ADD_EMPLOYEE, employee);
+            router.push({ name: 'home' });
         }
     }
 };

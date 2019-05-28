@@ -93,7 +93,7 @@ export default {
         &--small {
             height: 20px;
             padding: 0 10px;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         &--icon {

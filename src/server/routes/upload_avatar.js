@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
                 employee.avatar = newAvatar._id;
                 await employee.save();
 
-                res.status(200).send('avatar received');
+                res.status(200).send(filePath);
             } else {
                 res.status(400).send('no such employee');
             }
