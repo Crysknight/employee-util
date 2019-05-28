@@ -1,15 +1,18 @@
-const { Schema } = require('mongoose');
-const connection = require('../connection');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-module.exports = Schema({
+const userSchema = Schema({
     login: {
         type: String,
         unique: true,
         required: true
     },
+    name: String,
     pwd: {
         type: String,
         required: true
     },
     token: String
 });
+
+module.exports = mongoose.model('User', userSchema);
