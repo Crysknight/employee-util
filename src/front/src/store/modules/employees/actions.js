@@ -1,4 +1,5 @@
-import { axios, router } from 'plugins';
+import { axios } from 'plugins';
+import router from 'router';
 
 import {
     MUTATION_SET_EMPLOYEES,

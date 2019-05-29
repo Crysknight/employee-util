@@ -1,11 +1,16 @@
 import vueConstants from 'vue-constants';
+import { sync } from 'vuex-router-sync';
 
 import EUApp from './eu_app';
-import { router, registerGlobals } from './plugins';
+import { registerGlobals } from './plugins';
+import router from './router';
 import store from './store';
 
 Vue.use(vueConstants);
 Vue.config.productionTip = false;
+
+console.log(router);
+sync(store, router);
 
 registerGlobals();
 
