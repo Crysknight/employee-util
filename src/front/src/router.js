@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import { EUAuth, EUEmployees, EUAddEmployee } from '../views';
+import { EUAuth, EUEmployees, EUAddEmployee } from './views';
 
 Vue.use(VueRouter);
 

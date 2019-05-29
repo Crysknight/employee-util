@@ -1,4 +1,5 @@
-import { router, axios } from 'plugins';
+import { axios } from 'plugins';
+import router from 'router';
 import { getUser } from 'utils';
 import {
     MUTATION_SET_USER,
