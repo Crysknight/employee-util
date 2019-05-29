@@ -12,6 +12,7 @@ module.exports = {
                 assets: resolve('src/assets'),
                 components: resolve('src/components'),
                 plugins: resolve('src/plugins'),
+                router: resolve('src/router'),
                 constants: resolve('src/constants'),
                 utils: resolve('src/utils')
             }

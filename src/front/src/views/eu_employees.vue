@@ -38,7 +38,7 @@
 
 <script>
 import { EUEmployee } from 'components';
-import { router } from 'plugins';
+import router from 'router';
 
 export default {
     name: 'EUEmployees',
