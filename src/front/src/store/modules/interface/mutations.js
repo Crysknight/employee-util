@@ -3,7 +3,9 @@ import {
     MUTATION_OPEN_CONTEXT_MENU,
     MUTATION_CLOSE_CONTEXT_MENU,
     MUTATION_SHOW_MESSAGE,
-    MUTATION_HIDE_MESSAGE
+    MUTATION_HIDE_MESSAGE,
+    MUTATION_SHOW_MODAL,
+    MUTATION_HIDE_MODAL
 } from 'constants';
 
 export default {
@@ -22,5 +24,12 @@ export default {
     [MUTATION_HIDE_MESSAGE](state, message) {
         const index = state.messages.indexOf(message);
         state.messages.splice(index, 1);
+    },
+    [MUTATION_SHOW_MODAL](state, modal) {
+        state.modals.push(modal);
+    },
+    [MUTATION_HIDE_MODAL](state, modal) {
+        const index = state.modals.indexOf(modal);
+        state.modals.splice(index, 1);
     }
 };

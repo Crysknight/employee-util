@@ -2,6 +2,7 @@
     <div class="eu-app">
         <EUMenu />
         <EUContextMenu />
+        <EUModal />
         <div class="eu-app__content">
             <EUHeader />
             <div class="eu-app__view">
@@ -13,11 +14,23 @@
 </template>
 
 <script>
-import { EUMenu, EUContextMenu, EUHeader, EUMessage } from 'components';
+import {
+    EUMenu,
+    EUContextMenu,
+    EUHeader,
+    EUMessage,
+    EUModal
+} from 'components';
 
 export default {
     name: 'EUApp',
-    components: { EUMenu, EUContextMenu, EUHeader, EUMessage },
+    components: {
+        EUMenu,
+        EUContextMenu,
+        EUHeader,
+        EUMessage,
+        EUModal
+    },
     created() {
         this.checkAuth();
     },

@@ -57,8 +57,9 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        width: 100%;
         min-width: 150px;
-        margin: 12px 0;
+        margin: 8px 0;
         padding-right: 10px;
         border: 1px solid #92beff;
         border-radius: 3px;

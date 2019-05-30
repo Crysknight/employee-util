@@ -36,7 +36,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin: 12px 0;
+        width: 100%;
+        margin: 8px 0;
 
         &__checkbox {
             width: 20px;

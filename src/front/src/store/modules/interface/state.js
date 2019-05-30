@@ -1,5 +1,6 @@
 export default {
     menu: false,
     messages: [],
-    contextMenu: null
+    contextMenu: null,
+    modals: []
 };

@@ -1,6 +1,8 @@
 import {
     MUTATION_SHOW_MESSAGE,
-    MUTATION_HIDE_MESSAGE
+    MUTATION_HIDE_MESSAGE,
+    MUTATION_SHOW_MODAL,
+    MUTATION_HIDE_MODAL
 } from 'constants';
 import { stringRandom } from 'utils';
 
@@ -25,5 +27,28 @@ export default {
                 commit(MUTATION_HIDE_MESSAGE, message);
             }, message.selfDestroy);
         }
+    },
+    showModal({ commit }, payload) {
+        const modal = { id: stringRandom() };
+
+        if (typeof payload === 'string') {
+            modal.type = payload;
+        } else {
+            Object.keys(payload).forEach(key => {
+                modal[key] = payload[key];
+            });
+        }
+
+        commit(MUTATION_SHOW_MODAL, modal);
+    },
+    hideModal(
+        { commit, getters: { currentModal, modalById } },
+        payload = currentModal
+    ) {
+        const modal = typeof payload === 'string'
+            ? modalById(payload)
+            : payload;
+
+        commit(MUTATION_HIDE_MODAL, modal);
     }
 };

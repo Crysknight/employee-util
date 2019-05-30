@@ -38,7 +38,7 @@
 
 <script>
 import { EUEmployee } from 'components';
-import router from 'router';
+import { MODAL_TYPES } from 'constants';
 
 export default {
     name: 'EUEmployees',
@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         addEmployee() {
-            router.push({ name: 'addEmployee' });
+            this.showModal(MODAL_TYPES.ADD_EMPLOYEE);
         },
         initEmployeeDeletion() {
             console.log('initEmployeeDeletion');
@@ -62,7 +62,8 @@ export default {
         deleteMetrics() {
             console.log('deleteMetrics');
         },
-        ...mapActions('employees', ['getEmployees'])
+        ...mapActions('employees', ['getEmployees']),
+        ...mapActions('interface', ['showModal'])
     }
 };
 </script>
