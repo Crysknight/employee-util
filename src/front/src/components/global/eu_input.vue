@@ -31,8 +31,9 @@ export default {
 
 <style lang="scss">
     .eu-input {
+        width: 100%;
         height: 40px;
-        margin: 12px 0;
+        margin: 8px 0;
         padding: 0 4px;
         border: 1px solid #92beff;
         border-radius: 2px;

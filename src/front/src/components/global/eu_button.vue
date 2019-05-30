@@ -82,7 +82,7 @@ export default {
         cursor: pointer;
 
         &:hover {
-            background-color: #6c8ef0;
+            background-color: #297fff;
         }
 
         &--disabled {
