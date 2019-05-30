@@ -34,4 +34,5 @@ npm run build
 
 cd /vagrant/src/server
 npm i
+mkdir static
 sudo pm2 start index.js
