@@ -6,7 +6,7 @@
             :employee="employee"
         />
         <EUButton
-            v-contextmenu="{
+            v-context-menu="{
                 leftClick: true,
                 position: 'top left',
                 options: [
@@ -57,7 +57,7 @@ export default {
             console.log('initEmployeeDeletion');
         },
         addMetrics() {
-            console.log('addMetrics');
+            this.showModal(MODAL_TYPES.ADD_METRICS);
         },
         deleteMetrics() {
             console.log('deleteMetrics');
