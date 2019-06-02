@@ -38,9 +38,9 @@ export default {
         };
     },
     methods: {
-        add() {
+        async add() {
             const { name, isMentor, avatar } = this;
-            this.createEmployee({ name, isMentor, avatar });
+            await this.createEmployee({ name, isMentor, avatar });
 
             this.hideModal();
         },

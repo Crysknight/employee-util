@@ -13,5 +13,26 @@ module.exports = async (req, res) => {
         };
     });
     await employee.save();
-    res.send(employee);
+
+    const populatedEmployee = await Employee.populate(
+        employee,
+        [
+            { path: 'skills.skill', select: '-id' },
+            { path: 'skills.rates.user', select: 'login -id' }
+        ]
+    );
+
+    const formattedEmployee = populatedEmployee.toObject();
+    formattedEmployee.skills = formattedEmployee.skills.map(skill => {
+        const formattedSkill = {
+            ...skill,
+            name: skill.skill.name
+        };
+        delete formattedSkill.skill;
+        delete formattedSkill.__v;
+
+        return formattedSkill;
+    });
+
+    res.send(formattedEmployee);
 };

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "sudo nodejs index.js"
+    "dev": "sudo nodejs index.js",
+    "dev-brk": "sudo nodejs --inspect-brk=0.0.0.0:9229 index.js"
   },
   "author": "",
   "license": "ISC",
