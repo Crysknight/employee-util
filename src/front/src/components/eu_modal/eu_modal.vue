@@ -1,5 +1,9 @@
 <template>
-    <div v-if="currentModal" class="eu-modal">
+    <div
+        v-if="currentModal"
+        class="eu-modal"
+        @click.self="handleOverlayClick"
+    >
         <component
             class="eu-modal__content"
             :is="modalComponent"
@@ -20,6 +24,14 @@ export default {
             return MODAL_TYPES[this.currentModal.type] || this.currentModal.type;
         },
         ...mapGetters('interface', ['currentModal'])
+    },
+    methods: {
+        handleOverlayClick() {
+            if (this.currentModal.hideOnOverlayClick) {
+                this.hideModal();
+            }
+        },
+        ...mapActions('interface', ['hideModal'])
     }
 };
 </script>
@@ -36,6 +48,7 @@ export default {
         top: 0;
         z-index: 100;
         background-color: rgba(40, 40, 40, 0.4);
+        cursor: pointer;
 
         &__content {
             padding: 25px;

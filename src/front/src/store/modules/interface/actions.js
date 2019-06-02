@@ -29,7 +29,10 @@ export default {
         }
     },
     showModal({ commit }, payload) {
-        const modal = { id: stringRandom() };
+        const modal = {
+            id: stringRandom(),
+            hideOnOverlayClick: true
+        };
 
         if (typeof payload === 'string') {
             modal.type = payload;
