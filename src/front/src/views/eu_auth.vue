@@ -19,7 +19,7 @@
                 required
                 v-model="password"
             />
-            <EUButton type="submit" />
+            <EUButton type="submit">Войти</EUButton>
         </form>
     </div>
 </template>
