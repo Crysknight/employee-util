@@ -18,10 +18,12 @@ module.exports = async (req, res) => {
         const formattedEmployees = populatedEmployees
             .filter(({ name }) => name)
             .map(employee => {
-                const formattedEmployee = {
-                    ...employee.toObject(),
-                    avatar: employee.avatar.path
-                };
+                const formattedEmployee = { ...employee.toObject() };
+
+                if (employee.avatar) {
+                    formattedEmployee.avatar = employee.avatar.path;
+                }
+
                 formattedEmployee.skills = employee.skills.map(skill => {
                     const formattedSkill = {
                         ...skill.toObject(),

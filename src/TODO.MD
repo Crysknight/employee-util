@@ -1,5 +1,5 @@
 #FIXES
-- trying to create metrics without employees will cause some error
+- validation to make sure app won't crash because of null exception
 
 #FEATURES
 - grouping for metrics (soft, hard skills, etc.)
