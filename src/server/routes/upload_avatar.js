@@ -3,12 +3,13 @@ const path = require('path');
 const { ObjectId } = require('mongoose').Types;
 
 const { Avatar, Employee } = require('../models');
+const { SERVER_PATH, AVATARS_PATH } = require('../constants');
 
 module.exports = async (req, res) => {
     const form = formidable.IncomingForm();
 
     form.encoding = 'utf-8';
-    form.uploadDir = path.resolve(__dirname, '../static/userpics');
+    form.uploadDir = AVATARS_PATH;
     form.keepExtensions = true;
     form.parse(req, async (error, fields, files) => {
         if (error) {
@@ -19,7 +20,12 @@ module.exports = async (req, res) => {
 
             const employee = await Employee.findById(employeeId);
             if (employee) {
-                const filePath = path.relative('/vagrant/src/server', avatar.path);
+                if (employee.avatar) {
+                    const oldAvatar = await Avatar.findById(employee.avatar);
+                    await oldAvatar.remove();
+                }
+
+                const filePath = path.relative(SERVER_PATH, avatar.path);
                 const newAvatar = new Avatar({
                     path: path.resolve('/', filePath),
                     name: avatar.name,

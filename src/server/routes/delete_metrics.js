@@ -3,7 +3,8 @@ const { Skill, Employee } = require('../models');
 module.exports = async (req, res) => {
     const { skillId } = req.body;
 
-    await Skill.findByIdAndRemove(skillId);
+    const skill = await Skill.findById(skillId);
+    await skill.remove();
 
     const employees = await Employee.find();
     await Promise.all(employees.map(async employee => {
