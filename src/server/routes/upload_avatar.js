@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     const form = formidable.IncomingForm();
 
     form.encoding = 'utf-8';
-    form.uploadDir = path.resolve(__dirname, '../static/userpics');
+    form.uploadDir = path.resolve(__dirname, '../static/avatars');
     form.keepExtensions = true;
     form.parse(req, async (error, fields, files) => {
         if (error) {
