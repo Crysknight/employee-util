@@ -19,6 +19,10 @@ module.exports = async (req, res) => {
 
             const employee = await Employee.findById(employeeId);
             if (employee) {
+                if (employee.avatar) {
+                    Avatar.findByIdAndRemove(employee.avatar);
+                }
+
                 const filePath = path.relative('/vagrant/src/server', avatar.path);
                 const newAvatar = new Avatar({
                     path: path.resolve('/', filePath),
