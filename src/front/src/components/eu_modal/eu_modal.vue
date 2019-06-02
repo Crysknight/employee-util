@@ -25,7 +25,24 @@ export default {
         },
         ...mapGetters('interface', ['currentModal'])
     },
+    created() {
+        this.setEvents();
+    },
+    beforeDestroy() {
+        this.removeEvents();
+    },
     methods: {
+        setEvents() {
+            window.addEventListener('keydown', this.handleKeydown);
+        },
+        removeEvents() {
+            window.removeEventListener('keydown', this.handleKeydown);
+        },
+        handleKeydown({ which }) {
+            if (which === 27 && this.currentModal) {
+                this.handleOverlayClick();
+            }
+        },
         handleOverlayClick() {
             if (this.currentModal.hideOnOverlayClick) {
                 this.hideModal();
