@@ -8,3 +8,5 @@
 - grouping for metrics (soft, hard skills, etc.)
 - rework metrics gui so that it will be obvious that metrics' rates are collaborative
 - adaptive design
+- report section
+- section for hiring employees
