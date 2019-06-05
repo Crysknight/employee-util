@@ -8,5 +8,6 @@ module.exports = {
     createEmployee: require('./create_employee'),
     getEmployees: require('./get_employees'),
     rate: require('./rate'),
+    deleteEmployees: require('./delete_employees'),
     uploadAvatar: require('./upload_avatar')
 };
