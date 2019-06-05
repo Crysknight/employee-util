@@ -3,6 +3,7 @@ module.exports = {
     login: require('./login'),
     logout: require('./logout'),
     checkAuth: require('./check_auth'),
+    getMetrics: require('./get_metrics'),
     createMetrics: require('./create_metrics'),
     deleteMetrics: require('./delete_metrics'),
     createEmployee: require('./create_employee'),

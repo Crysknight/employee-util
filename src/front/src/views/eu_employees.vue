@@ -84,7 +84,7 @@ export default {
             this.showModal(MODAL_TYPES.ADD_METRICS);
         },
         deleteMetrics() {
-            console.log('deleteMetrics');
+            this.showModal(MODAL_TYPES.DELETE_METRICS);
         },
         ...mapActions('employees', [
             'getEmployees',
