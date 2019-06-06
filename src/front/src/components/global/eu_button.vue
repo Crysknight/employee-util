@@ -24,7 +24,9 @@ export default {
         icon: String,
         noShadow: Boolean,
         round: Boolean,
-        white: Boolean
+        white: Boolean,
+        warning: Boolean,
+        danger: Boolean
     },
     computed: {
         buttonClasses() {
@@ -34,7 +36,9 @@ export default {
                 'eu-button--icon': this.icon,
                 'eu-button--icon-no-text': !this.$slots.default && this.icon,
                 'eu-button--round': this.round,
-                'eu-button--white': this.white
+                'eu-button--white': this.white,
+                'eu-button--warning': this.warning,
+                'eu-button--danger': this.danger
             };
         },
         buttonStyle() {
@@ -85,11 +89,6 @@ export default {
             background-color: #297fff;
         }
 
-        &--disabled {
-            background-color: #a5acb6;
-            opacity: 0.5;
-        }
-
         &--small {
             height: 20px;
             padding: 0 10px;
@@ -130,6 +129,29 @@ export default {
             background-color: white;
             &:hover {
                 background-color: #efefef;
+            }
+        }
+
+        &--warning {
+            background-color: #ffd45c;
+            &:hover {
+                background-color: #ffc41e;
+            }
+        }
+
+        &--danger {
+            background-color: #ff644b;
+            &:hover {
+                background-color: #ff472a;
+            }
+        }
+
+        &--disabled {
+            background-color: #a5acb6;
+            opacity: 0.5;
+            cursor: default;
+            &:hover {
+                background-color: #a5acb6;
             }
         }
     }

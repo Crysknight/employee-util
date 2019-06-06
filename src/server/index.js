@@ -31,6 +31,8 @@ app.post('/api/login', routes.login);
 app.get('/api/logout', routes.logout);
 app.get('/api/employee', routes.getEmployees);
 app.post('/api/employee', routes.createEmployee);
+app.delete('/api/employee', routes.deleteEmployees);
+app.get('/api/metrics', routes.getMetrics);
 app.post('/api/metrics', routes.createMetrics);
 app.delete('/api/metrics', routes.deleteMetrics);
 app.post('/api/rate', routes.rate);

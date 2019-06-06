@@ -5,7 +5,8 @@ import {
     MUTATION_SET_EMPLOYEES,
     MUTATION_ADD_SKILL_RATE,
     MUTATION_CHANGE_SKILL_RATE,
-    MUTATION_ADD_EMPLOYEE
+    MUTATION_ADD_EMPLOYEE,
+    MUTATION_DELETE_EMPLOYEES
 } from 'constants';
 
 export default {
@@ -48,6 +49,24 @@ export default {
             employee.avatar = savedAvatar;
             commit(MUTATION_ADD_EMPLOYEE, employee);
             router.push({ name: 'home' });
+        }
+    },
+    async deleteEmployees(
+        {
+            state: { employeesToDelete },
+            getters: { isNoEmployeesToDelete },
+            commit
+        },
+        employees = employeesToDelete
+    ) {
+        if (isNoEmployeesToDelete) {
+            return;
+        }
+
+        const employeesIds = employees.map(({ _id }) => _id);
+        const response = await axios.delete('employee', { data: { employeesIds } });
+        if (response === 'ok') {
+            commit(MUTATION_DELETE_EMPLOYEES);
         }
     }
 };

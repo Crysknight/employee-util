@@ -1,5 +1,8 @@
 <template>
-    <div :class="['eu-employee', employeeClasses]">
+    <div
+        :class="['eu-employee', employeeClasses]"
+        @click="handleEmployeeClick"
+    >
         <div
             v-if="employee.isMentor"
             class="eu-employee__mentor-star"
@@ -7,6 +10,10 @@
         ></div>
         <div class="eu-employee__header">
             <div class="eu-employee__name">{{ employee.name }}</div>
+            <div
+                v-if="isDeleteModeOn"
+                :class="['eu-employee__delete-mark', deleteMarkClasses]"
+            ></div>
         </div>
         <div class="eu-employee__body">
             <div class="eu-employee__avatar" :style="avatarStyle"></div>
@@ -23,6 +30,8 @@
 </template>
 
 <script>
+import { MUTATION_TOGGLE_EMPLOYEE_DELETION } from 'constants';
+
 import EUSkill from './eu_skill';
 
 export default {
@@ -44,9 +53,20 @@ export default {
             return {
                 backgroundImage: `url(${this.employee.avatar})`
             };
-        }
+        },
+        deleteMarkClasses() {
+            return {
+                'eu-employee__delete-mark--checked': this.isEmployeeToDelete(this.employee)
+            };
+        },
+        ...mapState('employees', ['isDeleteModeOn']),
+        ...mapGetters('employees', ['isEmployeeToDelete'])
     },
     methods: {
+        handleEmployeeClick() {
+            this.MUTATION_TOGGLE_EMPLOYEE_DELETION(this.employee);
+        },
+        ...mapMutations('employees', [MUTATION_TOGGLE_EMPLOYEE_DELETION]),
         ...mapActions('employees', ['rateSkill'])
     }
 };
@@ -90,7 +110,7 @@ export default {
         }
 
         &__header {
-            align-items: center;
+            align-items: flex-start;
         }
 
         &__body {
@@ -101,6 +121,26 @@ export default {
             width: 100%;
             margin-bottom: 15px;
             font-size: 20px;
+        }
+
+        &__delete-mark {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            position: relative;
+            border: 1px solid #92beff;
+            border-radius: 10px;
+            background-color: white;
+            &--checked:before {
+                content: '';
+                width: 14px;
+                height: 14px;
+                position: absolute;
+                left: 2px;
+                top: 2px;
+                border-radius: 7px;
+                background-color: #92beff;
+            }
         }
 
         &__avatar {

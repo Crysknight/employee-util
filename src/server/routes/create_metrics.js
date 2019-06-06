@@ -11,5 +11,5 @@ module.exports = async (req, res) => {
         await employee.save();
     }));
 
-    res.status(200).send('ok');
+    res.status(200).send(skill);
 };
