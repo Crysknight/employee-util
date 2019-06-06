@@ -8,6 +8,7 @@ when checked
 - figure out how to properly delete many employees in a way that it will trigger hooks on schema
 - better design for file input
 - find user by eu_userId in rate.js
+- finish metrics deletion
 
 #FEATURES
 - condider socket solution
