@@ -1,5 +1,6 @@
 #FIXES
 - validation to make sure app won't crash because of null exception
+- validation to protect db routes from duplicate error etc.
 - UI: checker component used in checkbox and employee deletion mechanics, make more saturated
 when checked
 - rename skills collection into metrics
@@ -9,6 +10,7 @@ when checked
 - better design for file input
 - find user by eu_userId in rate.js
 - finish metrics deletion
+- move utils into separate lib
 
 #FEATURES
 - condider socket solution

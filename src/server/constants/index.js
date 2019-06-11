@@ -1,3 +1,1 @@
-module.exports = {
-    ...require('./general')
-};
+export * from './general';

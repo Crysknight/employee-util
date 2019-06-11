@@ -8,7 +8,7 @@ import {
     MUTATION_DELETE_EMPLOYEES,
     MUTATION_CANCEL_EMPLOYEES_DELETION
 } from 'constants';
-import { arrayDelete, arrayToggle } from 'utils';
+import { arrayDelete, arrayToggle } from 'shared/utils';
 
 export default {
     [MUTATION_SET_EMPLOYEES](state, employees) {

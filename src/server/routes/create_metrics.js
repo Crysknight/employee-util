@@ -1,6 +1,6 @@
-const { Skill, Employee } = require('../models');
+import { Skill, Employee } from 'models';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const { name } = req.body;
     const skill = new Skill({ name });
     await skill.save();

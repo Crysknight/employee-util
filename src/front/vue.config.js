@@ -14,7 +14,8 @@ module.exports = {
                 plugins: resolve('src/plugins'),
                 router: resolve('src/router'),
                 constants: resolve('src/constants'),
-                utils: resolve('src/utils')
+                utils: resolve('src/utils'),
+                shared: resolve('../shared')
             }
         },
         plugins: [
@@ -30,6 +31,18 @@ module.exports = {
                 IS_DEVELOPMENT: process.env.NODE_ENV === 'development'
             })
         ],
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    include: [
+                        resolve('src'),
+                        resolve('../shared')
+                    ]
+                }
+            ]
+        },
         devServer: {
             watchOptions: { poll: true },
             proxy: {

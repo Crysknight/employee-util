@@ -1,8 +1,8 @@
-const passwordHash = require('password-hash');
+import passwordHash from 'password-hash';
 
-const { User } = require('../models');
+import { User } from 'models';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const { login, name, pwd: rawPwd } = req.body;
     const pwd = passwordHash.generate(rawPwd);
 

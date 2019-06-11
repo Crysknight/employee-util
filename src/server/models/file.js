@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const fs = require('fs');
-const path = require('path');
+import mongoose from 'mongoose';
+import fs from 'fs';
+import path from 'path';
 
-const { SERVER_PATH } = require('../constants');
+import { SERVER_PATH } from 'constants';
 
 const { Schema } = mongoose;
 
@@ -35,4 +35,4 @@ fileSchema.pre('remove', function(next) {
     next();
 });
 
-module.exports = mongoose.model('File', fileSchema)
+export default mongoose.model('File', fileSchema)

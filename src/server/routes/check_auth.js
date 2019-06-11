@@ -1,6 +1,6 @@
-const { User } = require('../models');
+import { User } from 'models';
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
     if (req.baseUrl === '/api/login') {
         next();
         return;

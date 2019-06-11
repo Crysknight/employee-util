@@ -1,12 +1,14 @@
-const passwordHash = require('password-hash');
-const tokenGenerator = require('token-generator')({
+import passwordHash from 'password-hash';
+import tokenGeneratorFactory from 'token-generator';
+
+import { User } from 'models';
+
+const tokenGenerator = tokenGeneratorFactory({
     salt: 'kowalskyanalysis',
     timestampMap: 'agvh5454da'
 });
 
-const { User } = require('../models');
-
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const { login, pwd } = req.body;
     if (
         !login ||

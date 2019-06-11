@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
 const skillSchema = Schema({
@@ -9,4 +10,4 @@ const skillSchema = Schema({
     }
 });
 
-module.exports = mongoose.model('Skill', skillSchema);
+export default mongoose.model('Skill', skillSchema);

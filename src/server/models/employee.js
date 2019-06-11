@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
 const rateSubschema = Schema({
@@ -35,4 +36,4 @@ const employeeSchema = Schema({
     skills: [skillSubschema]
 });
 
-module.exports = mongoose.model('Employee', employeeSchema);
+export default mongoose.model('Employee', employeeSchema);

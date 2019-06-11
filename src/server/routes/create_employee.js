@@ -1,8 +1,10 @@
-const { ObjectId } = require('mongoose').Types;
+import mongoose from 'mongoose';
 
-const { Employee, Skill } = require('../models');
+import { Employee, Skill } from 'models';
 
-module.exports = async (req, res) => {
+const { ObjectId } = mongoose.Types;
+
+export default async (req, res) => {
     const { name, isMentor } = req.body;
     const employee = new Employee({ name, isMentor });
     const skills = await Skill.find();

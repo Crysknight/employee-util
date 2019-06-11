@@ -1,14 +1,11 @@
-module.exports = {
-    createUser: require('./create_user'),
-    login: require('./login'),
-    logout: require('./logout'),
-    checkAuth: require('./check_auth'),
-    getMetrics: require('./get_metrics'),
-    createMetrics: require('./create_metrics'),
-    deleteMetrics: require('./delete_metrics'),
-    createEmployee: require('./create_employee'),
-    getEmployees: require('./get_employees'),
-    rate: require('./rate'),
-    deleteEmployees: require('./delete_employees'),
-    uploadAvatar: require('./upload_avatar')
-};
+export { default as createUser } from './create_user';
+export { default as login } from './login';
+export { default as logout } from './logout';
+export { default as checkAuth } from './check_auth';
+export { default as getMetrics } from './get_metrics';
+export { default as createMetrics } from './create_metrics';
+export { default as deleteMetrics } from './delete_metrics';
+export { default as createEmployee } from './create_employee';
+export { default as rate } from './rate';
+export { default as deleteEmployees } from './delete_employees';
+export { default as uploadAvatar } from './upload_avatar';

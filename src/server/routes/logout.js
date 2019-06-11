@@ -1,6 +1,6 @@
-const { User } = require('../models');
+import { User } from 'models';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const { eu_token: token } = req.cookies;
     const user = await User.findOne({ token });
     delete user.token;

@@ -4,12 +4,14 @@ import {
     MUTATION_SHOW_MODAL,
     MUTATION_HIDE_MODAL
 } from 'constants';
-import { stringRandom } from 'utils';
+import * as utils from 'shared/utils';
+console.log(utils);
+debugger;
 
 export default {
     showMessage({ commit }, payload) {
         const message = {
-            id: stringRandom(),
+            id: utils.stringRandom(),
             selfDestroy: 3000
         };
         if (typeof payload === 'string') {
@@ -30,7 +32,7 @@ export default {
     },
     showModal({ commit }, payload) {
         const modal = {
-            id: stringRandom(),
+            id: utils.stringRandom(),
             hideOnOverlayClick: true
         };
 

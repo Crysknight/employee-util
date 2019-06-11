@@ -1,4 +1,4 @@
-import { arrayDelete } from 'utils';
+import { arrayDelete } from 'shared/utils';
 import {
     MUTATION_SET_METRICS,
     MUTATION_CREATE_METRICS,
