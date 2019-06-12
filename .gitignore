@@ -11,5 +11,8 @@
 # Dependency directories
 node_modules/
 
+# Builds
+dist/
+
 # Logs
 npm-debug.log*

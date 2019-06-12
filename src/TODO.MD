@@ -18,3 +18,4 @@ when checked
 - rework metrics gui so that it will be obvious that metrics' rates are collaborative
 - adaptive design
 - only one employee deletion by contextmenu
+- logger for server app

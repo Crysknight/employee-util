@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run build && npm run dev-brk",
+    "dev": "npm run build && npm run server-brk",
+    "prod": "npm run build && npm run pm",
     "build": "rm -rf dist && webpack --mode development",
-    "dev-brk": "sudo nodejs --inspect-brk=0.0.0.0:9229 dist/server.js"
+    "server-brk": "sudo nodejs --inspect-brk=0.0.0.0:9229 dist/server.js",
+    "pm": "sudo pm2 start dist/server.js"
   },
   "author": "",
   "license": "ISC",
