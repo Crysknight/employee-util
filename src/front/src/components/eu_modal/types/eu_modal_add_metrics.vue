@@ -1,7 +1,6 @@
 <template>
-    <div class="eu-modal-add-metrics">
+    <div class="eu-modal-add-measure">
         <form
-            ref="addMetricsForm"
             class="eu-modal-add-employee__form"
             @submit.prevent="add"
         >
@@ -22,17 +21,17 @@
 
 <script>
 export default {
-    name: 'EUModalAddMetrics',
+    name: 'EUModalAddMeasure',
     data() {
         return { name: '' };
     },
     methods: {
         async add() {
-            await this.createMetrics(this.name);
+            await this.createMeasure(this.name);
 
             this.hideModal();
         },
-        ...mapActions('metrics', ['createMetrics']),
+        ...mapActions('measures', ['createMeasure']),
         ...mapActions('interface', ['hideModal'])
     }
 };

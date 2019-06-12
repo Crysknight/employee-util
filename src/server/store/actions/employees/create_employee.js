@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
 
-import { Employee, Skill } from 'models';
+import { Employee, Measure } from 'models';
 import { MUTATION_CREATE_EMPLOYEE } from 'shared/constants';
 
 const { ObjectId } = mongoose.Types;
 
 export default async ({ commit }, employeeData) => {
     const employee = new Employee(employeeData);
-    const skills = await Skill.find();
-    employee.skills = skills.map(skill => {
+    const measures = await Measure.find();
+    employee.measures = measures.map(measure => {
         return {
-            skill: ObjectId(skill._id),
+            measure: ObjectId(measure._id),
             rates: []
         };
     });
@@ -19,21 +19,21 @@ export default async ({ commit }, employeeData) => {
     const populatedEmployee = await Employee.populate(
         employee,
         [
-            { path: 'skills.skill', select: '-id' },
-            { path: 'skills.rates.user', select: 'login -id' }
+            { path: 'measures.measure', select: '-id' },
+            { path: 'measures.rates.user', select: 'login -id' }
         ]
     );
 
     const formattedEmployee = populatedEmployee.toObject();
-    formattedEmployee.skills = formattedEmployee.skills.map(skill => {
-        const formattedSkill = {
-            ...skill,
-            name: skill.skill.name
+    formattedEmployee.measures = formattedEmployee.measures.map(measure => {
+        const formattedMeasure = {
+            ...measure,
+            name: measure.measure.name
         };
-        delete formattedSkill.skill;
-        delete formattedSkill.__v;
+        delete formattedMeasure.measure;
+        delete formattedMeasure.__v;
 
-        return formattedSkill;
+        return formattedMeasure;
     });
 
     commit(MUTATION_CREATE_EMPLOYEE, formattedEmployee);

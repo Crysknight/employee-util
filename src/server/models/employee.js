@@ -14,10 +14,10 @@ const rateSubschema = Schema({
     }
 });
 
-const skillSubschema = Schema({
-    skill: {
+const measureSubschema = Schema({
+    measure: {
         type: Schema.Types.ObjectId,
-        ref: 'Skill'
+        ref: 'Measure'
     },
     rates: [rateSubschema]
 });
@@ -33,7 +33,7 @@ const employeeSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Avatar'
     },
-    skills: [skillSubschema]
+    measures: [measureSubschema]
 });
 
 export default mongoose.model('Employee', employeeSchema);

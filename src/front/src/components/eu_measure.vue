@@ -1,17 +1,17 @@
 <template>
-    <div class="eu-skill">
-        <div class="eu-skill__title">{{ skill.name }}</div>
-        <div class="eu-skill__progressbar">
+    <div class="eu-measure">
+        <div class="eu-measure__title">{{ measure.name }}</div>
+        <div class="eu-measure__progressbar">
             <div
                 v-for="section in 10"
-                class="eu-skill__progressbar-section"
+                class="eu-measure__progressbar-section"
                 :key="section"
                 :title="section"
                 @click="rate(section)"
             ></div>
             <div
                 ref="progress"
-                class="eu-skill__progressbar-progress"
+                class="eu-measure__progressbar-progress"
                 :style="progressStyle"
             ></div>
         </div>
@@ -20,9 +20,9 @@
 
 <script>
 export default {
-    name: 'EUEmployeeSkill',
+    name: 'EUEmployeeMeasure',
     props: {
-        skill: {
+        measure: {
             type: Object,
             required: true
         }
@@ -34,7 +34,7 @@ export default {
     },
     computed: {
         averageRate() {
-            const { rates } = this.skill;
+            const { rates } = this.measure;
             return rates.reduce((rate, { value }) => (rate + value), 0) / rates.length;
         },
         progressStyle() {
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .eu-skill {
+    .eu-measure {
         display: flex;
         flex-direction: column;
         flex-shrink: 0;

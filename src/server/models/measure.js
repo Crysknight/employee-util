@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const skillSchema = Schema({
+const measureSchema = Schema({
     name: {
         type: String,
         unique: true,
@@ -10,4 +10,4 @@ const skillSchema = Schema({
     }
 });
 
-export default mongoose.model('Skill', skillSchema);
+export default mongoose.model('Measure', measureSchema);

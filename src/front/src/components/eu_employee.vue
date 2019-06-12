@@ -17,12 +17,12 @@
         </div>
         <div class="eu-employee__body">
             <div class="eu-employee__avatar" :style="avatarStyle"></div>
-            <div class="eu-employee__skills">
-                <EUSkill
-                    v-for="skill in employee.skills"
-                    :key="skill._id"
-                    :skill="skill"
-                    @rate="rateSkill({ employee, skill, value: $event })"
+            <div class="eu-employee__measures">
+                <EUMetrics
+                    v-for="measure in employee.measures"
+                    :key="measure._id"
+                    :measure="measure"
+                    @rate="rateMeasure({ employee, measure, value: $event })"
                 />
             </div>
         </div>
@@ -32,11 +32,11 @@
 <script>
 import { MUTATION_TOGGLE_EMPLOYEE_DELETION } from 'constants';
 
-import EUSkill from './eu_skill';
+import EUMeasure from './eu_measure';
 
 export default {
     name: 'EUEmployee',
-    components: { EUSkill },
+    components: { EUMetrics },
     props: {
         employee: {
             type: Object,
@@ -67,7 +67,7 @@ export default {
             this.MUTATION_TOGGLE_EMPLOYEE_DELETION(this.employee);
         },
         ...mapMutations('employees', [MUTATION_TOGGLE_EMPLOYEE_DELETION]),
-        ...mapActions('employees', ['rateSkill'])
+        ...mapActions('employees', ['rateMetrics'])
     }
 };
 </script>
@@ -154,7 +154,7 @@ export default {
             background-position: center;
         }
 
-        &__skills {
+        &__measures {
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;

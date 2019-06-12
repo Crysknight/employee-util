@@ -6,8 +6,8 @@ export default async ({ commit }) => {
     const populatedEmployees = await Employee.populate(
         employees,
         [
-            { path: 'skills.skill', select: '-_id' },
-            { path: 'skills.rates.user', select: 'login -_id' },
+            { path: 'measures.measure', select: '-_id' },
+            { path: 'measures.rates.user', select: 'login -_id' },
             { path: 'avatar', select: 'path -_id' }
         ]
     );
@@ -20,14 +20,14 @@ export default async ({ commit }) => {
                 formattedEmployee.avatar = employee.avatar.path;
             }
 
-            formattedEmployee.skills = employee.skills.map(skill => {
-                const formattedSkill = {
-                    ...skill.toObject(),
-                    name: skill.skill.name
+            formattedEmployee.measures = employee.measures.map(measure => {
+                const formattedMeasure = {
+                    ...measure.toObject(),
+                    name: measure.measure.name
                 };
-                delete formattedSkill.skill;
-                delete formattedSkill.__v;
-                formattedSkill.rates = skill.rates.map(rate => {
+                delete formattedMeasure.measure;
+                delete formattedMeasure.__v;
+                formattedMeasure.rates = measure.rates.map(rate => {
                     const formattedRate = {
                         ...rate.toObject(),
                         user: rate.user.login
@@ -36,8 +36,8 @@ export default async ({ commit }) => {
                     return formattedRate;
                 });
 
-                return formattedSkill;
-y                });
+                return formattedMeasure;
+            });
 
             return formattedEmployee;
         });
