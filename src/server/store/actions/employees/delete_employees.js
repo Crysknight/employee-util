@@ -1,11 +1,8 @@
-import { Employee } from 'models';
+import { deleteEmployees } from 'models';
 import { MUTATION_DELETE_EMPLOYEES } from 'shared/constants';
 
 export default async ({ commit }, employeesIds) => {
-    await Promise.all(employeesIds.map(async id => {
-        const employeeDoc = Employee.findById(id);
-        await employeeDoc.remove();
-    }));
+    await deleteEmployees(employeesIds);
 
     commit(MUTATION_DELETE_EMPLOYEES, employeesIds);
 };

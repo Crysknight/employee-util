@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "sudo nodejs index.js",
+    "dev": "npm run build && npm run dev-brk",
     "build": "rm -rf dist && webpack --mode development",
     "dev-brk": "sudo nodejs --inspect-brk=0.0.0.0:9229 dist/server.js"
   },

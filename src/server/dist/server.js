@@ -218,15 +218,63 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mong
 
 /***/ }),
 
-/***/ "./models/employee.js":
-/*!****************************!*\
-  !*** ./models/employee.js ***!
-  \****************************/
+/***/ "./models/employee/create_employee.js":
+/*!********************************************!*\
+  !*** ./models/employee/create_employee.js ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst { Schema } = mongoose__WEBPACK_IMPORTED_MODULE_0___default.a;\n\nconst rateSubschema = Schema({\n    user: {\n        type: Schema.Types.ObjectId,\n        ref: 'User'\n    },\n    value: {\n        type: Number,\n        min: 0,\n        max: 10\n    }\n});\n\nconst skillSubschema = Schema({\n    skill: {\n        type: Schema.Types.ObjectId,\n        ref: 'Skill'\n    },\n    rates: [rateSubschema]\n});\n\nconst employeeSchema = Schema({\n    name: {\n        type: String,\n        unique: true,\n        required: true\n    },\n    isMentor: Boolean,\n    avatar: {\n        type: Schema.Types.ObjectId,\n        ref: 'Avatar'\n    },\n    skills: [skillSubschema]\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (mongoose__WEBPACK_IMPORTED_MODULE_0___default.a.model('Employee', employeeSchema));\n\n\n//# sourceURL=webpack:///./models/employee.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! models */ \"./models/index.js\");\n\n\n\n\nconst { ObjectId } = mongoose__WEBPACK_IMPORTED_MODULE_0___default.a.Types;\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async employeeData => {\n    const employee = new models__WEBPACK_IMPORTED_MODULE_1__[\"Employee\"](employeeData);\n    const measures = await models__WEBPACK_IMPORTED_MODULE_1__[\"Measure\"].find();\n    employee.measures = measures.map(measure => {\n        return {\n            measure: ObjectId(measure._id),\n            rates: []\n        };\n    });\n    await employee.save();\n\n    const populatedEmployee = await models__WEBPACK_IMPORTED_MODULE_1__[\"Employee\"].populate(\n        employee,\n        [\n            { path: 'measures.measure', select: '-id' },\n            { path: 'measures.rates.user', select: 'login -id' }\n        ]\n    );\n\n    const formattedEmployee = populatedEmployee.toObject();\n    formattedEmployee.measures = formattedEmployee.measures.map(measure => {\n        const formattedMeasure = {\n            ...measure,\n            name: measure.measure.name\n        };\n        delete formattedMeasure.measure;\n        delete formattedMeasure.__v;\n\n        return formattedMeasure;\n    });\n\n    return formattedEmployee;\n});\n\n\n//# sourceURL=webpack:///./models/employee/create_employee.js?");
+
+/***/ }),
+
+/***/ "./models/employee/delete_employees.js":
+/*!*********************************************!*\
+  !*** ./models/employee/delete_employees.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! models */ \"./models/index.js\");\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async employeesIds => {\n    await Promise.all(employeesIds.map(async id => {\n        const employeeDoc = models__WEBPACK_IMPORTED_MODULE_0__[\"Employee\"].findById(id);\n        await employeeDoc.remove();\n    }));\n});\n\n\n//# sourceURL=webpack:///./models/employee/delete_employees.js?");
+
+/***/ }),
+
+/***/ "./models/employee/employee.js":
+/*!*************************************!*\
+  !*** ./models/employee/employee.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst { Schema } = mongoose__WEBPACK_IMPORTED_MODULE_0___default.a;\n\nconst rateSubschema = Schema({\n    user: {\n        type: Schema.Types.ObjectId,\n        ref: 'User'\n    },\n    value: {\n        type: Number,\n        min: 0,\n        max: 10\n    }\n});\n\nconst measureSubschema = Schema({\n    measure: {\n        type: Schema.Types.ObjectId,\n        ref: 'Measure'\n    },\n    rates: [rateSubschema]\n});\n\nconst employeeSchema = Schema({\n    name: {\n        type: String,\n        unique: true,\n        required: true\n    },\n    isMentor: Boolean,\n    avatar: {\n        type: Schema.Types.ObjectId,\n        ref: 'Avatar'\n    },\n    measures: [measureSubschema]\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (mongoose__WEBPACK_IMPORTED_MODULE_0___default.a.model('Employee', employeeSchema));\n\n\n//# sourceURL=webpack:///./models/employee/employee.js?");
+
+/***/ }),
+
+/***/ "./models/employee/get_employees.js":
+/*!******************************************!*\
+  !*** ./models/employee/get_employees.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! models */ \"./models/index.js\");\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async () => {\n    const employees = await models__WEBPACK_IMPORTED_MODULE_0__[\"Employee\"].find();\n    const populatedEmployees = await models__WEBPACK_IMPORTED_MODULE_0__[\"Employee\"].populate(\n        employees,\n        [\n            { path: 'measures.measure', select: '-_id' },\n            { path: 'measures.rates.user', select: 'login -_id' },\n            { path: 'avatar', select: 'path -_id' }\n        ]\n    );\n    const formattedEmployees = populatedEmployees\n        .filter(({ name }) => name)\n        .map(employee => {\n            const formattedEmployee = { ...employee.toObject() };\n\n            if (employee.avatar) {\n                formattedEmployee.avatar = employee.avatar.path;\n            }\n\n            formattedEmployee.measures = employee.measures.map(measure => {\n                const formattedMeasure = {\n                    ...measure.toObject(),\n                    name: measure.measure.name\n                };\n                delete formattedMeasure.measure;\n                delete formattedMeasure.__v;\n                formattedMeasure.rates = measure.rates.map(rate => {\n                    const formattedRate = {\n                        ...rate.toObject(),\n                        user: rate.user.login\n                    };\n\n                    return formattedRate;\n                });\n\n                return formattedMeasure;\n            });\n\n            return formattedEmployee;\n        });\n\n    return formattedEmployees;\n});\n\n\n//# sourceURL=webpack:///./models/employee/get_employees.js?");
+
+/***/ }),
+
+/***/ "./models/employee/index.js":
+/*!**********************************!*\
+  !*** ./models/employee/index.js ***!
+  \**********************************/
+/*! exports provided: default, getEmployees, createEmployee, deleteEmployees */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _employee__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./employee */ \"./models/employee/employee.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return _employee__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _get_employees__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get_employees */ \"./models/employee/get_employees.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"getEmployees\", function() { return _get_employees__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n/* harmony import */ var _create_employee__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./create_employee */ \"./models/employee/create_employee.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"createEmployee\", function() { return _create_employee__WEBPACK_IMPORTED_MODULE_2__[\"default\"]; });\n\n/* harmony import */ var _delete_employees__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./delete_employees */ \"./models/employee/delete_employees.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"deleteEmployees\", function() { return _delete_employees__WEBPACK_IMPORTED_MODULE_3__[\"default\"]; });\n\n\n\n\n\n\n\n\n//# sourceURL=webpack:///./models/employee/index.js?");
 
 /***/ }),
 
@@ -246,23 +294,23 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mong
 /*!*************************!*\
   !*** ./models/index.js ***!
   \*************************/
-/*! exports provided: User, Skill, Employee, File, Avatar */
+/*! exports provided: User, Measure, Employee, File, Avatar, getEmployees, createEmployee, deleteEmployees */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user */ \"./models/user.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"User\", function() { return _user__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _skill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./skill */ \"./models/skill.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Skill\", function() { return _skill__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n/* harmony import */ var _employee__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./employee */ \"./models/employee.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Employee\", function() { return _employee__WEBPACK_IMPORTED_MODULE_2__[\"default\"]; });\n\n/* harmony import */ var _file__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./file */ \"./models/file.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"File\", function() { return _file__WEBPACK_IMPORTED_MODULE_3__[\"default\"]; });\n\n/* harmony import */ var _avatar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./avatar */ \"./models/avatar.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Avatar\", function() { return _avatar__WEBPACK_IMPORTED_MODULE_4__[\"default\"]; });\n\n\n\n\n\n\n\n\n//# sourceURL=webpack:///./models/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user */ \"./models/user.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"User\", function() { return _user__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _measure__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./measure */ \"./models/measure.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Measure\", function() { return _measure__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n/* harmony import */ var _employee__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./employee */ \"./models/employee/index.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Employee\", function() { return _employee__WEBPACK_IMPORTED_MODULE_2__[\"default\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"getEmployees\", function() { return _employee__WEBPACK_IMPORTED_MODULE_2__[\"getEmployees\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"createEmployee\", function() { return _employee__WEBPACK_IMPORTED_MODULE_2__[\"createEmployee\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"deleteEmployees\", function() { return _employee__WEBPACK_IMPORTED_MODULE_2__[\"deleteEmployees\"]; });\n\n/* harmony import */ var _file__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./file */ \"./models/file.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"File\", function() { return _file__WEBPACK_IMPORTED_MODULE_3__[\"default\"]; });\n\n/* harmony import */ var _avatar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./avatar */ \"./models/avatar.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Avatar\", function() { return _avatar__WEBPACK_IMPORTED_MODULE_4__[\"default\"]; });\n\n\n\n\n\n\n\n\n\n//# sourceURL=webpack:///./models/index.js?");
 
 /***/ }),
 
-/***/ "./models/skill.js":
-/*!*************************!*\
-  !*** ./models/skill.js ***!
-  \*************************/
+/***/ "./models/measure.js":
+/*!***************************!*\
+  !*** ./models/measure.js ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst { Schema } = mongoose__WEBPACK_IMPORTED_MODULE_0___default.a;\n\nconst skillSchema = Schema({\n    name: {\n        type: String,\n        unique: true,\n        required: true\n    }\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (mongoose__WEBPACK_IMPORTED_MODULE_0___default.a.model('Skill', skillSchema));\n\n\n//# sourceURL=webpack:///./models/skill.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst { Schema } = mongoose__WEBPACK_IMPORTED_MODULE_0___default.a;\n\nconst measureSchema = Schema({\n    name: {\n        type: String,\n        unique: true,\n        required: true\n    }\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (mongoose__WEBPACK_IMPORTED_MODULE_0___default.a.model('Measure', measureSchema));\n\n\n//# sourceURL=webpack:///./models/measure.js?");
 
 /***/ }),
 
@@ -430,7 +478,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var path
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! models */ \"./models/index.js\");\n/* harmony import */ var shared_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! shared/constants */ \"../shared/constants/index.js\");\n\n\n\n\n\nconst { ObjectId } = mongoose__WEBPACK_IMPORTED_MODULE_0___default.a.Types;\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async ({ commit }, employeeData) => {\n    const employee = new models__WEBPACK_IMPORTED_MODULE_1__[\"Employee\"](employeeData);\n    const skills = await models__WEBPACK_IMPORTED_MODULE_1__[\"Skill\"].find();\n    employee.skills = skills.map(skill => {\n        return {\n            skill: ObjectId(skill._id),\n            rates: []\n        };\n    });\n    await employee.save();\n\n    const populatedEmployee = await models__WEBPACK_IMPORTED_MODULE_1__[\"Employee\"].populate(\n        employee,\n        [\n            { path: 'skills.skill', select: '-id' },\n            { path: 'skills.rates.user', select: 'login -id' }\n        ]\n    );\n\n    const formattedEmployee = populatedEmployee.toObject();\n    formattedEmployee.skills = formattedEmployee.skills.map(skill => {\n        const formattedSkill = {\n            ...skill,\n            name: skill.skill.name\n        };\n        delete formattedSkill.skill;\n        delete formattedSkill.__v;\n\n        return formattedSkill;\n    });\n\n    commit(shared_constants__WEBPACK_IMPORTED_MODULE_2__[\"MUTATION_CREATE_EMPLOYEE\"], formattedEmployee);\n});\n\n\n//# sourceURL=webpack:///./store/actions/employees/create_employee.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! models */ \"./models/index.js\");\n/* harmony import */ var shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! shared/constants */ \"../shared/constants/index.js\");\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async ({ commit }, employeeData) => {\n    const employee = await Object(models__WEBPACK_IMPORTED_MODULE_0__[\"createEmployee\"])(employeeData);\n\n    commit(shared_constants__WEBPACK_IMPORTED_MODULE_1__[\"MUTATION_CREATE_EMPLOYEE\"], employee);\n});\n\n\n//# sourceURL=webpack:///./store/actions/employees/create_employee.js?");
 
 /***/ }),
 
@@ -442,7 +490,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mong
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! models */ \"./models/index.js\");\n/* harmony import */ var shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! shared/constants */ \"../shared/constants/index.js\");\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async ({ commit }, employeesIds) => {\n    await Promise.all(employeesIds.map(async id => {\n        const employeeDoc = models__WEBPACK_IMPORTED_MODULE_0__[\"Employee\"].findById(id);\n        await employeeDoc.remove();\n    }));\n\n    commit(shared_constants__WEBPACK_IMPORTED_MODULE_1__[\"MUTATION_DELETE_EMPLOYEES\"], employeesIds);\n});\n\n\n//# sourceURL=webpack:///./store/actions/employees/delete_employees.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! models */ \"./models/index.js\");\n/* harmony import */ var shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! shared/constants */ \"../shared/constants/index.js\");\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async ({ commit }, employeesIds) => {\n    await Object(models__WEBPACK_IMPORTED_MODULE_0__[\"deleteEmployees\"])(employeesIds);\n\n    commit(shared_constants__WEBPACK_IMPORTED_MODULE_1__[\"MUTATION_DELETE_EMPLOYEES\"], employeesIds);\n});\n\n\n//# sourceURL=webpack:///./store/actions/employees/delete_employees.js?");
 
 /***/ }),
 
@@ -454,7 +502,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mode
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! models */ \"./models/index.js\");\n/* harmony import */ var shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! shared/constants */ \"../shared/constants/index.js\");\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async ({ commit }) => {\n    const employees = await models__WEBPACK_IMPORTED_MODULE_0__[\"Employee\"].find();\n    const populatedEmployees = await models__WEBPACK_IMPORTED_MODULE_0__[\"Employee\"].populate(\n        employees,\n        [\n            { path: 'skills.skill', select: '-_id' },\n            { path: 'skills.rates.user', select: 'login -_id' },\n            { path: 'avatar', select: 'path -_id' }\n        ]\n    );\n    const formattedEmployees = populatedEmployees\n        .filter(({ name }) => name)\n        .map(employee => {\n            const formattedEmployee = { ...employee.toObject() };\n\n            if (employee.avatar) {\n                formattedEmployee.avatar = employee.avatar.path;\n            }\n\n            formattedEmployee.skills = employee.skills.map(skill => {\n                const formattedSkill = {\n                    ...skill.toObject(),\n                    name: skill.skill.name\n                };\n                delete formattedSkill.skill;\n                delete formattedSkill.__v;\n                formattedSkill.rates = skill.rates.map(rate => {\n                    const formattedRate = {\n                        ...rate.toObject(),\n                        user: rate.user.login\n                    };\n\n                    return formattedRate;\n                });\n\n                return formattedSkill;\ny                });\n\n            return formattedEmployee;\n        });\n\n    commit(shared_constants__WEBPACK_IMPORTED_MODULE_1__[\"MUTATION_SET_EMPLOYEES\"], formattedEmployees);\n});\n\n\n//# sourceURL=webpack:///./store/actions/employees/get_employees.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! models */ \"./models/index.js\");\n/* harmony import */ var shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! shared/constants */ \"../shared/constants/index.js\");\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (async ({ commit }) => {\n    const employees = await Object(models__WEBPACK_IMPORTED_MODULE_0__[\"getEmployees\"])();\n\n    commit(shared_constants__WEBPACK_IMPORTED_MODULE_1__[\"MUTATION_SET_EMPLOYEES\"], employees);\n});\n\n\n//# sourceURL=webpack:///./store/actions/employees/get_employees.js?");
 
 /***/ }),
 
