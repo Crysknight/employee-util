@@ -1,7 +1,9 @@
 import {
     MUTATION_SET_EMPLOYEES,
     MUTATION_CREATE_EMPLOYEE,
-    MUTATION_DELETE_EMPLOYEES
+    MUTATION_DELETE_EMPLOYEES,
+    MUTATION_ADD_MEASURE_RATE,
+    MUTATION_CHANGE_MEASURE_RATE
 } from '../../constants';
 import { arrayDelete } from '../../utils';
 
@@ -19,5 +21,12 @@ export default {
                 arrayDelete(state.employees, employee);
             }
         });
+    },
+    [MUTATION_ADD_MEASURE_RATE](_state, { measure, rate }) {
+        measure.rates.push(rate);
+    },
+    [MUTATION_CHANGE_MEASURE_RATE](_state, { measure, rate }) {
+        const targetRate = measure.rates.find(localRate => localRate.user === rate.user);
+        targetRate.value = rate.value;
     }
 };

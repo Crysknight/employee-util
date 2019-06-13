@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run build && npm run server-brk",
-    "prod": "npm run build && npm run pm",
-    "build": "rm -rf dist && webpack --mode development",
+    "prod": "npm run build-prod && npm run pm",
+    "build": "rm -rf dist && cross-env NODE_ENV=development webpack",
+    "build-prod": "rm -rf dist && cross-env NODE_ENV=production webpack",
     "server-brk": "sudo nodejs --inspect-brk=0.0.0.0:9229 dist/server.js",
     "pm": "sudo pm2 start dist/server.js"
   },
@@ -16,8 +17,10 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "express": "^4.17.1",
     "formidable": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^4.11.10",
     "password-hash": "^1.2.2",
     "token-generator": "^1.0.0",

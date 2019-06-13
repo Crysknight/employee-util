@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
+    mode: process.env.NODE_ENV,
     entry: {
         server: './index.js'
     },
@@ -35,5 +36,11 @@ module.exports = {
             models: path.resolve(__dirname, 'models'),
             shared: path.resolve(__dirname, '../shared'),
         }
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            IS_DEVELOPMENT: process.env.NODE_ENV === 'development',
+            IS_PRODUCTION: process.env.NODE_ENV === 'production'
+        })
+    ]
 };

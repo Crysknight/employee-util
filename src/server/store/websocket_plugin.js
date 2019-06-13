@@ -1,24 +1,51 @@
-const ws = require('ws');
-const SocketServer = new ws.Server({ port: 3001 });
+import ws from 'ws';
+import jwt from 'jsonwebtoken';
 
-module.exports = store => {
+import { TOKEN_SECRET } from 'constants';
+
+const socketServer = new ws.Server({
+    port: 3001,
+    verifyClient(info, callback) {
+        if (IS_DEVELOPMENT) {
+            console.log('access granted, you slicky!');
+            // here be real user from db
+            info.req.eu_user = 'slicky';
+            callback(true);
+            return;
+        }
+
+        const { token: rawToken } = info.req.headers;
+
+        let token;
+        try {
+            token = jwt.verify(rawToken, TOKEN_SECRET)
+        } catch (error) {
+            callback(false, 401, 'unauthorized');
+        }
+
+        info.req.eu_user = token;
+        callback(true);
+    }
+});
+
+export default store => {
     store.subscribe(mutation => {
-        SocketServer.clients.forEach(client => {
+        socketServer.clients.forEach(client => {
             if (client.readyState === ws.OPEN) {
                 client.send(JSON.stringify(mutation));
             }
         });
     });
 
-    SocketServer.on('connection', Socket => {
-        Socket.on('message', message => {
+    socketServer.on('connection', (socket, request) => {
+        socket.on('message', message => {
             const action = JSON.parse(message);
             const { type, payload } = action;
-            if (type && payload) {
-                store.dispatch(type, payload);
-            } else if (type) {
-                store.dispatch(type);
-            }
+
+            console.log(request);
+            debugger;
+
+            store.dispatch(type, payload);
         });
     });
 };
