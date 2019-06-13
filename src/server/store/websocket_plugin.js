@@ -1,24 +1,25 @@
 import ws from 'ws';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie';
 
-import { TOKEN_SECRET } from 'constants';
+import { TOKEN_SECRET, SWC_ORIGIN } from '$constants';
 
 const socketServer = new ws.Server({
     port: 3001,
     verifyClient(info, callback) {
-        if (IS_DEVELOPMENT) {
-            console.log('access granted, you slicky!');
+        if (IS_DEVELOPMENT && info.origin === SWC_ORIGIN) {
             // here be real user from db
             info.req.eu_user = 'slicky';
             callback(true);
             return;
         }
 
-        const { token: rawToken } = info.req.headers;
+        const { cookie } = info.req.headers;
+        const { eu_token } = cookieParser.parse(cookie);
 
         let token;
         try {
-            token = jwt.verify(rawToken, TOKEN_SECRET)
+            token = jwt.verify(eu_token, TOKEN_SECRET)
         } catch (error) {
             callback(false, 401, 'unauthorized');
         }
@@ -39,13 +40,21 @@ export default store => {
 
     socketServer.on('connection', (socket, request) => {
         socket.on('message', message => {
-            const action = JSON.parse(message);
+            let action;
+            try {
+                action = JSON.parse(message);
+            } catch (error) {
+                socket.send('wrong payload format, JSON required', error);
+                return;
+            }
+
             const { type, payload } = action;
 
-            console.log(request);
-            debugger;
-
-            store.dispatch(type, payload);
+            try {
+                store.dispatch(type, payload);
+            } catch (error) {
+                socket.send('wrong action type', error);
+            }
         });
     });
 };

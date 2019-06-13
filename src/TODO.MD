@@ -11,6 +11,8 @@ when checked
 - finish metrics deletion
 - move utils into separate lib
 - constants for server messages
+- add to front webpack aliases a $
+- in logout, replace setting negative cookies to res.clearCookie of express
 
 #FEATURES
 - grouping for metrics (soft, hard skills, etc.)

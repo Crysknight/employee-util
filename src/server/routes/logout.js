@@ -1,4 +1,4 @@
-import { User } from 'models';
+import { User } from '$models';
 
 export default async (req, res) => {
     const { eu_token: token } = req.cookies;

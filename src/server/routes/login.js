@@ -1,12 +1,8 @@
 import passwordHash from 'password-hash';
-import tokenGeneratorFactory from 'token-generator';
+import jwt from 'jsonwebtoken';
 
-import { User } from 'models';
-
-const tokenGenerator = tokenGeneratorFactory({
-    salt: 'kowalskyanalysis',
-    timestampMap: 'agvh5454da'
-});
+import { User } from '$models';
+import { TOKEN_SECRET } from '$constants';
 
 export default async (req, res) => {
     const { login, pwd } = req.body;
@@ -30,7 +26,14 @@ export default async (req, res) => {
         return;
     }
 
-    user.token = tokenGenerator.generate();
+    const token = jwt.sign(
+        { userId: user._id, userName: user.login },
+        TOKEN_SECRET
+    );
+
+    debugger;
+
+    user.token = token;
     await user.save();
 
     const cookieOptions = {

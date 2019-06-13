@@ -2,8 +2,8 @@ import path from 'path';
 import mongoose from 'mongoose';
 import formidable from 'formidable';
 
-import { Avatar, Employee } from 'models';
-import { SERVER_PATH, AVATARS_PATH } from 'constants';
+import { Avatar, Employee } from '$models';
+import { SERVER_PATH, AVATARS_PATH } from '$constants';
 
 const { ObjectId } = mongoose.Types;
 

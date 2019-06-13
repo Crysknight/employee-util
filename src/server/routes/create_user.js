@@ -1,6 +1,6 @@
 import passwordHash from 'password-hash';
 
-import { User } from 'models';
+import { User } from '$models';
 
 export default async (req, res) => {
     const { login, name, pwd: rawPwd } = req.body;

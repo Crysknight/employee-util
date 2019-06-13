@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
 
-import { SERVER_PATH } from 'constants';
+import { SERVER_PATH } from '$constants';
 
 const { Schema } = mongoose;
 

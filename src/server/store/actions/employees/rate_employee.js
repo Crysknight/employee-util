@@ -1,5 +1,5 @@
-import { rateEmployee } from 'models';
-import { MUTATION_ADD_MEASURE_RATE, MUTATION_CHANGE_MEASURE_RATE } from 'shared/constants';
+import { rateEmployee } from '$models';
+import { MUTATION_ADD_MEASURE_RATE, MUTATION_CHANGE_MEASURE_RATE } from '$shared/constants';
 
 export default async ({ commit }, { employee, skill, value }) => {
     const employeeId = employee._id;

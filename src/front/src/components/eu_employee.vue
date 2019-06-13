@@ -18,7 +18,7 @@
         <div class="eu-employee__body">
             <div class="eu-employee__avatar" :style="avatarStyle"></div>
             <div class="eu-employee__measures">
-                <EUMetrics
+                <EUMeasure
                     v-for="measure in employee.measures"
                     :key="measure._id"
                     :measure="measure"
@@ -36,7 +36,7 @@ import EUMeasure from './eu_measure';
 
 export default {
     name: 'EUEmployee',
-    components: { EUMetrics },
+    components: { EUMeasure },
     props: {
         employee: {
             type: Object,

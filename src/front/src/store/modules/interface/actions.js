@@ -5,8 +5,6 @@ import {
     MUTATION_HIDE_MODAL
 } from 'constants';
 import * as utils from 'shared/utils';
-console.log(utils);
-debugger;
 
 export default {
     showMessage({ commit }, payload) {

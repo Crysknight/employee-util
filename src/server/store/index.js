@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import actions from './actions';
-import getModules from 'shared/store';
+import getModules from '$shared/store';
 import websocketPlugin from './websocket_plugin';
 import initialize from './initialize';
 

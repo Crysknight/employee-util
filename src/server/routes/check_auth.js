@@ -1,4 +1,4 @@
-import { User } from 'models';
+import { User } from '$models';
 
 export default async (req, res, next) => {
     if (req.baseUrl === '/api/login') {

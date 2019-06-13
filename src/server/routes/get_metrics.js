@@ -1,4 +1,4 @@
-import { Skill } from 'models';
+import { Skill } from '$models';
 
 export default async (req, res) => {
     const skills = await Skill.find();

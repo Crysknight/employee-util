@@ -1,5 +1,5 @@
-import { deleteEmployees } from 'models';
-import { MUTATION_DELETE_EMPLOYEES } from 'shared/constants';
+import { deleteEmployees } from '$models';
+import { MUTATION_DELETE_EMPLOYEES } from '$shared/constants';
 
 export default async ({ commit }, employeesIds) => {
     await deleteEmployees(employeesIds);

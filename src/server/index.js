@@ -28,10 +28,7 @@ app.use(cors({
     credentials: true
 }));
 
-
-app.use('/api/*', routes.checkAuth);
-
-app.post('/api/user', routes.createUser);
+// app.post('/api/user', routes.createUser);
 app.post('/api/login', routes.login);
 app.get('/api/logout', routes.logout);
 

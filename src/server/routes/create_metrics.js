@@ -1,4 +1,4 @@
-import { Skill, Employee } from 'models';
+import { Skill, Employee } from '$models';
 
 export default async (req, res) => {
     const { name } = req.body;

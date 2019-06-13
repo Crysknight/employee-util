@@ -32,9 +32,9 @@ module.exports = {
     externals: [nodeExternals()],
     resolve: {
         alias: {
-            constants: path.resolve(__dirname, 'constants'),
-            models: path.resolve(__dirname, 'models'),
-            shared: path.resolve(__dirname, '../shared'),
+            $constants: path.resolve(__dirname, 'constants'),
+            $models: path.resolve(__dirname, 'models'),
+            $shared: path.resolve(__dirname, '../shared'),
         }
     },
     plugins: [

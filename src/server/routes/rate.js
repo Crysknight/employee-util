@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { Employee, User } from 'models';
+import { Employee, User } from '$models';
 
 const { ObjectId } = mongoose.Types;
 
