@@ -70,9 +70,6 @@ export default {
         ]),
         ...mapGetters('employees', ['isNoEmployeesToDelete'])
     },
-    created() {
-        this.getEmployees();
-    },
     methods: {
         addEmployee() {
             this.showModal(MODAL_TYPES.ADD_EMPLOYEE);

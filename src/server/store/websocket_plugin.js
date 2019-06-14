@@ -50,11 +50,14 @@ export default store => {
 
             const { type, payload } = action;
 
-            try {
-                store.dispatch(type, payload);
-            } catch (error) {
-                socket.send('wrong action type', error);
+            // Get existing actions list, filter those of modules
+            const actions = Object.keys(store._actions).filter(type => type.match(/\//));
+            if (!actions.includes(type)) {
+                socket.send('wrong action type');
+                return;
             }
+
+            store.dispatch(type, payload);
         });
     });
 };

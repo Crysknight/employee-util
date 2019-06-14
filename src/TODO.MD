@@ -13,6 +13,7 @@ when checked
 - constants for server messages
 - add to front webpack aliases a $
 - in logout, replace setting negative cookies to res.clearCookie of express
+- deleteEmployee - ENOENT: no such file or directory, stat '/vagrant/src/server/front/dist/index.html
 
 #FEATURES
 - grouping for metrics (soft, hard skills, etc.)

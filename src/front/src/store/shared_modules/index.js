@@ -1,4 +1,5 @@
 import getSharedModules from 'shared/store';
+import { socket } from 'plugins';
 import { SHARED_ACTIONS } from 'constants';
 
 const actions = SHARED_ACTIONS.reduce((actionsObject, action) => {
@@ -7,16 +8,13 @@ const actions = SHARED_ACTIONS.reduce((actionsObject, action) => {
         actionsObject[moduleName] = {};
     }
 
-    actionsObject[moduleName][actionName] = function({ rootState }, payload) {
-        const { socket } = rootState;
-        if (socket && socket.socket) {
-            const message = JSON.stringify({
-                payload,
-                type: action
-            });
+    actionsObject[moduleName][actionName] = function(_context, payload) {
+        const message = JSON.stringify({
+            payload,
+            type: action
+        });
 
-            socket.socket.send(message);
-        }
+        socket.socket.send(message);
     };
 
     return actionsObject;
