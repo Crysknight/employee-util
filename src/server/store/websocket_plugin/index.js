@@ -1,3 +1,4 @@
+import ws from 'ws';
 import handleMessage from './handle_message';
 
 export default socketServer => store => {

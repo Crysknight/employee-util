@@ -21,12 +21,15 @@ export default store => {
         store.commit(mutation.type, mutation.payload);
     });
 
-    socketManager.addEventListener('error', () => {
+    const dispatchErrorMessage = () => {
         store.dispatch(
             'interface/showMessage',
             { type: 'error', text: MESSAGE_WEBSOCKET_FAILURE, selfDestroy: 10000 }
         );
-    });
+    };
+
+    socketManager.addEventListener('error', dispatchErrorMessage);
+    socketManager.addEventListener('close', dispatchErrorMessage);
 
     router.beforeEach((to, from, next) => {
         const { syncStore } = to.meta;
