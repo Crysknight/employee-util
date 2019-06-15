@@ -1,5 +1,5 @@
 import getSharedModules from 'shared/store';
-import { socket } from 'plugins';
+import { socketManager } from 'plugins';
 import { SHARED_STORE } from 'constants';
 
 const actions = Object.keys(SHARED_STORE).reduce((actionsObject, moduleKey) => {
@@ -15,7 +15,7 @@ const actions = Object.keys(SHARED_STORE).reduce((actionsObject, moduleKey) => {
                 type: `${moduleKey}/${actionKey}`
             });
 
-            socket.send(message);
+            socketManager.send(message);
         };
     });
 

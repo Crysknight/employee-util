@@ -1,8 +1,9 @@
-import { socket } from 'plugins';
+import { socketManager } from 'plugins';
 import router from 'router';
+import { MESSAGE_WEBSOCKET_FAILURE } from 'constants';
 
 export default store => {
-    socket.addEventListener('message', ({ data }) => {
+    socketManager.addEventListener('message', ({ data }) => {
         let mutation;
         try {
             mutation = JSON.parse(data);
@@ -18,6 +19,13 @@ export default store => {
         }
 
         store.commit(mutation.type, mutation.payload);
+    });
+
+    socketManager.addEventListener('error', () => {
+        store.dispatch(
+            'interface/showMessage',
+            { type: 'error', text: MESSAGE_WEBSOCKET_FAILURE, selfDestroy: 10000 }
+        );
     });
 
     router.beforeEach((to, from, next) => {
