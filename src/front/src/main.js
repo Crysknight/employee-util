@@ -9,7 +9,6 @@ import store from './store';
 Vue.use(vueConstants);
 Vue.config.productionTip = false;
 
-console.log(router);
 sync(store, router);
 
 registerGlobals();

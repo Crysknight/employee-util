@@ -35,6 +35,7 @@ module.exports = {
             $constants: path.resolve(__dirname, 'constants'),
             $models: path.resolve(__dirname, 'models'),
             $shared: path.resolve(__dirname, '../shared'),
+            $socket_server: path.resolve(__dirname, 'socket_server')
         }
     },
     plugins: [

@@ -19,3 +19,5 @@ export const arrayToggle = (array, value) => {
         array.splice(index, 1);
     }
 };
+
+export const objectClone = object => JSON.parse(JSON.stringify(object));

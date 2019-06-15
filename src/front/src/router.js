@@ -7,7 +7,10 @@ const routes = [
     {
         name: 'home',
         path: '/',
-        component: EUEmployees
+        component: EUEmployees,
+        meta: {
+            syncStore: ['employees', 'measures']
+        }
     },
     {
         name: 'auth',

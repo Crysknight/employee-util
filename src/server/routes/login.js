@@ -27,11 +27,9 @@ export default async (req, res) => {
     }
 
     const token = jwt.sign(
-        { userId: user._id, userName: user.login },
+        { id: user._id },
         TOKEN_SECRET
     );
-
-    debugger;
 
     user.token = token;
     await user.save();

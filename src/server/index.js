@@ -10,7 +10,10 @@ import cookieParser from 'cookie-parser';
 import * as routes from './routes';
 
 import './connection';
-import './store';
+import socketServer from './socket_server';
+import createStore from './store';
+
+createStore(socketServer);
 
 const app = express();
 
@@ -28,8 +31,11 @@ app.use(cors({
     credentials: true
 }));
 
-// app.post('/api/user', routes.createUser);
 app.post('/api/login', routes.login);
+
+app.use('/api/*', routes.checkAuth)
+
+app.post('/api/user', routes.createUser);
 app.get('/api/logout', routes.logout);
 
 app.get('/*', (_req, res) => {

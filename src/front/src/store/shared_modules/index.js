@@ -1,21 +1,23 @@
 import getSharedModules from 'shared/store';
 import { socket } from 'plugins';
-import { SHARED_ACTIONS } from 'constants';
+import { SHARED_STORE } from 'constants';
 
-const actions = SHARED_ACTIONS.reduce((actionsObject, action) => {
-    const [moduleName, actionName] = action.split('/');
-    if (!actionsObject[moduleName]) {
-        actionsObject[moduleName] = {};
+const actions = Object.keys(SHARED_STORE).reduce((actionsObject, moduleKey) => {
+    const moduleActions = SHARED_STORE[moduleKey];
+    if (!actionsObject[moduleKey]) {
+        actionsObject[moduleKey] = {};
     }
 
-    actionsObject[moduleName][actionName] = function(_context, payload) {
-        const message = JSON.stringify({
-            payload,
-            type: action
-        });
+    moduleActions.forEach(actionKey => {
+        actionsObject[moduleKey][actionKey] = function(_context, payload) {
+            const message = JSON.stringify({
+                payload,
+                type: `${moduleKey}/${actionKey}`
+            });
 
-        socket.socket.send(message);
-    };
+            socket.send(message);
+        };
+    });
 
     return actionsObject;
 }, {});

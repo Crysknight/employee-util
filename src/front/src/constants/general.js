@@ -6,10 +6,15 @@ export const MODAL_TYPES = {
     DELETE_METRICS: 'EUModalDeleteMetrics'
 };
 
-export const SHARED_ACTIONS = [
-    'employees/getEmployees',
-    'employees/createEmployee',
-    'employees/deleteEmployees'
-];
+export const SHARED_STORE = {
+    meta: [
+        'subscribe'
+    ],
+    employees: [
+        'getEmployees',
+        'createEmployee',
+        'deleteEmployee'
+    ]
+};
 
 export const SOCKET_ADDRESS = 'ws://localhost:8082';

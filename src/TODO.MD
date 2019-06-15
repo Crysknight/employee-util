@@ -3,7 +3,6 @@
 - validation to protect db routes from duplicate error etc.
 - UI: checker component used in checkbox and employee deletion mechanics, make more saturated
 when checked
-- rename skills collection into metrics
 - everywhere replace Promise.all with update operations
 - check what happens if no avatar is set in create_employee_modal
 - figure out how to properly delete many employees in a way that it will trigger hooks on schema
