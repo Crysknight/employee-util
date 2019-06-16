@@ -1,4 +1,4 @@
-import { DISALLOWED_ACTIONS } from '$constants';
+import { DISALLOWED_ACTIONS } from '$shared/constants';
 
 export default (message, socket, userData, store) => {
     let action;

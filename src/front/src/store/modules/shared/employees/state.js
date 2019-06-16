@@ -1,5 +1,4 @@
-export default {
-    employees: [],
+export default () => ({
     isDeleteModeOn: false,
     employeesToDelete: []
-};
+});

@@ -24,11 +24,30 @@ class EUSocketManager {
         this.addEventListener('close', this.handleClose);
     }
 
+    getMessageHandler(func) {
+        return ({ data: message }) => {
+            let messageObj;
+            try {
+                messageObj = JSON.parse(message);
+            } catch (_error) {}
+
+            if (!messageObj) {
+                func(message);
+            }
+
+            func(messageObj);
+        };
+    }
+
     resetEvents() {
         Object.keys(this.listenersBuffer).forEach(eventName => {
             const functions = this.listenersBuffer[eventName];
             functions.forEach(func => {
-                this.socket.addEventListener(eventName, func);
+                if (eventName === 'message') {
+                    this.socket.addEventListener(eventName, this.getMessageHandler(func));
+                } else {
+                    this.socket.addEventListener(eventName, func);
+                }
             });
         });
     }
@@ -52,7 +71,11 @@ class EUSocketManager {
         this.listenersBuffer[eventName].add(func);
 
         if (this.socket) {
-            this.socket.addEventListener(eventName, func);
+            if (eventName === 'message') {
+                this.socket.addEventListener(eventName, this.getMessageHandler(func));
+            } else {
+                this.socket.addEventListener(eventName, func);
+            }
         }
     }
 

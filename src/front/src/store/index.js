@@ -1,14 +1,15 @@
 import Vuex from 'vuex';
 
 import * as modules from './modules';
-import sharedModules from './shared_modules';
 import websocketPlugin from './websocket_plugin';
+import subscriptionPlugin from './subscription_plugin';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    modules: { ...modules, ...sharedModules },
-    plugins: [websocketPlugin]
+    modules,
+    plugins: [websocketPlugin, subscriptionPlugin],
+    strict: IS_DEVELOPMENT
 });
 
 window.$store = store;

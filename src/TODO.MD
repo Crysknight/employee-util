@@ -13,6 +13,8 @@ when checked
 - add to front webpack aliases a $
 - in logout, replace setting negative cookies to res.clearCookie of express
 - deleteEmployee - ENOENT: no such file or directory, stat '/vagrant/src/server/front/dist/index.html
+- user in app module must be initially unset
+- employees list flex-wrap
 
 #FEATURES
 - grouping for metrics (soft, hard skills, etc.)
