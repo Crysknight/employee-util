@@ -1,5 +1,9 @@
 export default (mutation, store) => {
     const { type, payload } = mutation;
+    if (!type) {
+        return;
+    }
+
     const [moduleName] = type.split('/');
 
     const mutations = Object.keys(store._mutations);

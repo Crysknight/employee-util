@@ -1,3 +1,5 @@
+export { default as KeyedSet } from './keyed_set';
+
 export const stringRandom = (length = 9) => {
     return Math.random()
         .toString(36)

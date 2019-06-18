@@ -13,6 +13,7 @@ export default (info, callback) => {
     const { cookie } = info.req.headers;
     if (!cookie) {
         callback(false, 401, 'unauthorized');
+        return;
     }
 
     const { eu_token, eu_user, eu_userId } = cookieParser.parse(cookie);
@@ -21,6 +22,7 @@ export default (info, callback) => {
         jwt.verify(eu_token, TOKEN_SECRET)
     } catch (error) {
         callback(false, 401, 'unauthorized');
+        return;
     }
 
     info.req.eu_user = eu_user;

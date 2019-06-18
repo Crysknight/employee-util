@@ -24,12 +24,20 @@ export default async employeeData => {
     );
 
     const formattedEmployee = populatedEmployee.toObject();
+
+    formattedEmployee.id = formattedEmployee._id.toString();
+    delete formattedEmployee._id;
+
     formattedEmployee.measures = formattedEmployee.measures.map(measure => {
         const formattedMeasure = {
             ...measure,
+            id: measure.measure._id.toString(),
+            listId: measure._id.toString(),
             name: measure.measure.name
         };
+
         delete formattedMeasure.measure;
+        delete formattedMeasure._id;
         delete formattedMeasure.__v;
 
         return formattedMeasure;

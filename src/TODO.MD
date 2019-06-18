@@ -15,10 +15,16 @@ when checked
 - deleteEmployee - ENOENT: no such file or directory, stat '/vagrant/src/server/front/dist/index.html
 - user in app module must be initially unset
 - employees list flex-wrap
+- comments everywhere to understand the design of system
+- format every single db output, data must be beautiful. Consider automatic format:
+    - _id to id transition
+    - __v deletion
+    - listId creation in lists
+    - id.toString() cast
 
 #FEATURES
-- grouping for metrics (soft, hard skills, etc.)
-- rework metrics gui so that it will be obvious that metrics' rates are collaborative
+- grouping for measures (soft, hard skills, etc.). Personal measures
+- rework measures gui so that it will be obvious that metrics' rates are collaborative
 - adaptive design
 - only one employee deletion by contextmenu
 - logger for server app

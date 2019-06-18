@@ -1,3 +1,4 @@
+import { KeyedSet } from 'shared/utils';
 import { SOCKET_ADDRESS } from 'constants';
 
 class EUSocketManager {
@@ -5,13 +6,12 @@ class EUSocketManager {
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.delayedSend = this.delayedSend.bind(this);
-        this.readdEventListeners = this.readdEventListeners.bind(this);
         this.tryReconnect = this.tryReconnect.bind(this);
 
         this.address = address;
 
         this.isOpened = false;
-        this.messageBuffer = [];
+        this.messageBuffer = new Set();
         this.listenersBuffer = {};
         this.timeout = null;
 
@@ -33,6 +33,7 @@ class EUSocketManager {
 
             if (!messageObj) {
                 func(message);
+                return;
             }
 
             func(messageObj);
@@ -42,12 +43,11 @@ class EUSocketManager {
     resetEvents() {
         Object.keys(this.listenersBuffer).forEach(eventName => {
             const functions = this.listenersBuffer[eventName];
-            functions.forEach(func => {
-                if (eventName === 'message') {
-                    this.socket.addEventListener(eventName, this.getMessageHandler(func));
-                } else {
-                    this.socket.addEventListener(eventName, func);
-                }
+            functions.forEach(funcObj => {
+                this.socket.addEventListener(
+                    eventName,
+                    (funcObj.decoratedFunc || funcObj.func)
+                );
             });
         });
     }
@@ -65,34 +65,53 @@ class EUSocketManager {
     }
 
     addEventListener(eventName, func) {
-        if (!this.listenersBuffer[eventName]) {
-            this.listenersBuffer[eventName] = new Set();
+        const funcObj = {
+            func,
+            decoratedFunc: null
+        };
+
+        if (eventName === 'message') {
+            funcObj.decoratedFunc = this.getMessageHandler(func);
         }
-        this.listenersBuffer[eventName].add(func);
+
+        if (!this.listenersBuffer[eventName]) {
+            this.listenersBuffer[eventName] = new KeyedSet('func');
+        }
+
+        this.listenersBuffer[eventName].add(funcObj);
 
         if (this.socket) {
-            if (eventName === 'message') {
-                this.socket.addEventListener(eventName, this.getMessageHandler(func));
-            } else {
-                this.socket.addEventListener(eventName, func);
+            this.socket.addEventListener(
+                eventName,
+                (funcObj.decoratedFunc || funcObj.func)
+            );
+        }
+    }
+
+    removeEventListener(eventName, func) {
+        const eventBuffer = this.listenersBuffer[eventName];
+        if (eventBuffer) {
+            const funcObj = eventBuffer.find(func);
+
+            if (this.socket) {
+                this.socket.removeEventListener(
+                    eventName,
+                    (funcObj.decoratedFunc || funcObj.func)
+                );
             }
+
+            eventBuffer.delete(funcObj);
         }
     }
 
     delayedSend() {
-        this.messageBuffer.forEach(messagePack => {
-            this.send(...messagePack);
+        this.messageBuffer.forEach(message => {
+            this.send(message);
         });
 
-        this.messageBuffer = [];
+        this.messageBuffer = new Set();
 
-        this.socket.removeEventListener('open', this.delayedSend);
-    }
-
-    readdEventListeners() {
-        this.listenersBuffer.forEach(listenerPack => {
-            this.socket.addEventListener(...listenerPack);
-        });
+        this.removeEventListener('open', this.delayedSend);
     }
 
     tryReconnect() {
@@ -100,12 +119,12 @@ class EUSocketManager {
         this.resetEvents();
     }
 
-    send(...args) {
+    send(message) {
         if (this.isOpened) {
-            this.socket.send(...args);
+            this.socket.send(message);
         } else {
-            this.messageBuffer.push(args);
-            this.socket.addEventListener('open', this.delayedSend);
+            this.messageBuffer.add(message);
+            this.addEventListener('open', this.delayedSend);
         }
     }
 
