@@ -67,7 +67,7 @@ export default {
             this.MUTATION_TOGGLE_EMPLOYEE_DELETION(this.employee);
         },
         ...mapMutations('employees', [MUTATION_TOGGLE_EMPLOYEE_DELETION]),
-        ...mapActions('employees', ['rateMetrics'])
+        ...mapActions('employees', ['rateMeasure'])
     }
 };
 </script>

@@ -9,7 +9,7 @@ const routes = [
         path: '/',
         component: EUEmployees,
         meta: {
-            syncStore: ['employees']
+            syncStore: ['employees', 'measures']
         }
     },
     {

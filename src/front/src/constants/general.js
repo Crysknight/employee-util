@@ -2,8 +2,8 @@ export const INPUT_TYPES = ['login', 'password', 'email'];
 
 export const MODAL_TYPES = {
     ADD_EMPLOYEE: 'EUModalAddEmployee',
-    ADD_METRICS: 'EUModalAddMetrics',
-    DELETE_METRICS: 'EUModalDeleteMetrics'
+    ADD_MEASURE: 'EUModalAddMeasure',
+    DELETE_MEASURE: 'EUModalDeleteMeasure'
 };
 
 export const SHARED_STORE = {
@@ -11,9 +11,12 @@ export const SHARED_STORE = {
         'subscribe'
     ],
     employees: [
-        'getEmployees',
         'createEmployee',
         'deleteEmployee'
+    ],
+    measures: [
+        'createMeasure',
+        'deleteMeasures'
     ]
 };
 

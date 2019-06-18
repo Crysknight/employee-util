@@ -36,11 +36,11 @@
                         },
                         {
                             text: 'Добавить метрику',
-                            function: addMetrics
+                            function: addMeasure
                         },
                         {
                             text: 'Удалить метрику',
-                            function: deleteMetrics
+                            function: deleteMeasures
                         }
                     ]
                 }"
@@ -77,11 +77,11 @@ export default {
         initEmployeeDeletion() {
             this.MUTATION_INIT_EMPLOYEES_DELETION();
         },
-        addMetrics() {
-            this.showModal(MODAL_TYPES.ADD_METRICS);
+        addMeasure() {
+            this.showModal(MODAL_TYPES.ADD_MEASURE);
         },
-        deleteMetrics() {
-            this.showModal(MODAL_TYPES.DELETE_METRICS);
+        deleteMeasure() {
+            this.showModal(MODAL_TYPES.DELETE_MEASURE);
         },
         ...mapActions('employees', [
             'getEmployees',

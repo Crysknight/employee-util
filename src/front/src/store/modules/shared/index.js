@@ -7,7 +7,8 @@ import localEmployees from './employees';
 
 const localModules = {
     meta: localMeta,
-    employees: localEmployees
+    employees: localEmployees,
+    measures: { namespaced: true }
 };
 
 Object.keys(localModules).forEach(moduleName => {
@@ -33,6 +34,6 @@ Object.keys(localModules).forEach(moduleName => {
     });
 });
 
-const { employees, meta } = getSharedModules(localModules, true);
+const { employees, meta, measures } = getSharedModules(localModules, true);
 
-export { employees, meta };
+export { employees, meta, measures };

@@ -21,6 +21,7 @@ when checked
     - __v deletion
     - listId creation in lists
     - id.toString() cast
+- SocketManager.prototype.send must process objects into strings
 
 #FEATURES
 - grouping for measures (soft, hard skills, etc.). Personal measures
@@ -28,3 +29,4 @@ when checked
 - adaptive design
 - only one employee deletion by contextmenu
 - logger for server app
+- actions using websocket should be async and resolve only if server confirms the action

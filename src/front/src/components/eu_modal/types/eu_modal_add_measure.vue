@@ -1,13 +1,9 @@
 <template>
-    <div class="eu-modal-add-metrics">
+    <div class="eu-modal-add-measure">
         <form
-            ref="addMetricsForm"
-            class="eu-modal-add-employee__form"
+            class="eu-modal-add-measure__form"
             @submit.prevent="add"
         >
-            <EUSelect
-                v-model="metrics"
-            />
             <EUInput
                 v-focus-first
                 placeholder="Название"
@@ -15,7 +11,7 @@
                 v-model="name"
             />
             <EUButton
-                class="eu-modal-add-employee__submit-button"
+                class="eu-modal-add-measure__submit-button"
                 noShadow
                 type="submit"
             >Создать</EUButton>
@@ -25,20 +21,17 @@
 
 <script>
 export default {
-    name: 'EUModalAddMetrics',
+    name: 'EUModalAddMeasure',
     data() {
-        return { metrics: null };
-    },
-    created() {
-        this.getMetrics();
+        return { name: '' };
     },
     methods: {
         async add() {
-            await this.createMetrics(this.name);
+            await this.createMeasure(this.name);
 
             this.hideModal();
         },
-        ...mapActions('metrics', ['getMetrics']),
+        ...mapActions('measures', ['createMeasure']),
         ...mapActions('interface', ['hideModal'])
     }
 };
