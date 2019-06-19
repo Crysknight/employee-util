@@ -22,6 +22,7 @@ when checked
     - listId creation in lists
     - id.toString() cast
 - SocketManager.prototype.send must process objects into strings
+- passing data to mutations without linked values is inconvenient. Need to find a workaround
 
 #FEATURES
 - grouping for measures (soft, hard skills, etc.). Personal measures
