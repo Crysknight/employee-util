@@ -4,18 +4,22 @@ import { Employee, User } from '$models';
 
 const { ObjectId } = mongoose.Types;
 
-export default async ({ employeeId, userId, skillId, value }) => {
+export default async ({ employeeId, userId, measureId, value }) => {
     const employee = await Employee.findById(employeeId);
-    const skill = employee.skills.find(skill => skill._id.equals(skillId));
-    if (skill) {
+    const measure = employee.measures.find(({ measure }) => measure.equals(measureId));
+    if (measure) {
         const user = await User.findById(userId);
 
-        let rate = skill.rates.find(rate => rate.user.equals(user._id));
+        let rate = measure.rates.find(rate => rate.user.equals(user._id));
         let isNew = false;
         if (!rate) {
             isNew = true;
-            rate = { user: ObjectId(user._id), value };
-            skill.rates.push(rate);
+            rate = {
+                _id: ObjectId(),
+                user: ObjectId(user._id),
+                value
+            };
+            measure.rates.push(rate);
         } else {
             rate.value = value;
         }
@@ -23,7 +27,7 @@ export default async ({ employeeId, userId, skillId, value }) => {
         await employee.save();
 
         const populatedRate = {
-            _id: rate._id,
+            listId: rate._id.toString(),
             value: rate.value,
             user: user.login
         };

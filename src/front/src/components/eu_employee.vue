@@ -20,9 +20,13 @@
             <div class="eu-employee__measures">
                 <EUMeasure
                     v-for="measure in employee.measures"
-                    :key="measure._id"
+                    :key="measure.id"
                     :measure="measure"
-                    @rate="rateMeasure({ employee, measure, value: $event })"
+                    @rate="rateEmployee({
+                        employeeId: employee.id,
+                        measureId: measure.id,
+                        value: $event
+                    })"
                 />
             </div>
         </div>
@@ -67,7 +71,7 @@ export default {
             this.MUTATION_TOGGLE_EMPLOYEE_DELETION(this.employee);
         },
         ...mapMutations('employees', [MUTATION_TOGGLE_EMPLOYEE_DELETION]),
-        ...mapActions('employees', ['rateMeasure'])
+        ...mapActions('employees', ['rateEmployee'])
     }
 };
 </script>

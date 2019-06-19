@@ -1,8 +1,8 @@
-import getState from './state';
+import state from './state';
 import mutations from './mutations';
 
 export default {
     namespaced: true,
-    state: getState(),
+    state,
     mutations
 };

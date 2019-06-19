@@ -2,7 +2,7 @@
     <div class="eu-employees">
         <EUEmployee
             v-for="employee of employees"
-            :key="employee._id"
+            :key="employee.id"
             :employee="employee"
         />
         <div class="eu-employees__buttons">
@@ -80,11 +80,10 @@ export default {
         addMeasure() {
             this.showModal(MODAL_TYPES.ADD_MEASURE);
         },
-        deleteMeasure() {
+        deleteMeasures() {
             this.showModal(MODAL_TYPES.DELETE_MEASURE);
         },
         ...mapActions('employees', [
-            'getEmployees',
             'initEmployeesDeletion',
             'cancelEmployeesDeletion',
             'deleteEmployees'

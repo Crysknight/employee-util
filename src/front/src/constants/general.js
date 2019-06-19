@@ -12,7 +12,8 @@ export const SHARED_STORE = {
     ],
     employees: [
         'createEmployee',
-        'deleteEmployee'
+        'deleteEmployees',
+        'rateEmployee'
     ],
     measures: [
         'createMeasure',

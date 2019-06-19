@@ -15,7 +15,10 @@ export default (localModules, filterDisallowed = false) => {
             }
 
             if (localModule.getters) {
-                sharedModule.getters = localModule.getters;
+                sharedModule.getters = {
+                    ...localModule.getters,
+                    ...sharedModule.getters
+                };
             }
 
             if (localModule.mutations) {

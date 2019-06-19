@@ -18,33 +18,31 @@ export default {
     
         commit(MUTATION_SET_EMPLOYEES, employees);
     },
-    async createEmployee({ commit }, employeeData) {
+    async createEmployee({ commit }, { data: employeeData }) {
         const employee = await createEmployee(employeeData);
     
         commit(MUTATION_CREATE_EMPLOYEE, employee);
     },
-    async deleteEmployee({ commit }, employeesIds) {
+    async deleteEmployees({ commit }, { data: employeesIds }) {
         await deleteEmployees(employeesIds);
     
         commit(MUTATION_DELETE_EMPLOYEES, employeesIds);
     },
-    async rateEmployee({ commit }, { employee, skill, value }) {
-        const employeeId = employee._id;
-        const skillId = skill._id;
-        const userId = 'wtf?';
-    
+    async rateEmployee(
+        { commit },
+        { data: { employeeId, measureId, value }, userId }
+    ) {
         let result;
         try {
-            result = await rateEmployee({ employeeId, userId, skillId, value });
-        } catch (error) {
-            result = 'failed';
-        }
-        if (result !== 'failed') {
+            result = await rateEmployee({ employeeId, userId, measureId, value });
+        } catch (_error) {}
+
+        if (result) {
             const { isNew, rate } = result;
             if (isNew) {
-                commit(MUTATION_ADD_MEASURE_RATE, { skill, rate });
+                commit(MUTATION_ADD_MEASURE_RATE, { employeeId, measureId, rate });
             } else {
-                commit(MUTATION_CHANGE_MEASURE_RATE, { skill, rate });
+                commit(MUTATION_CHANGE_MEASURE_RATE, { employeeId, measureId, rate });
             }
         }
     }
