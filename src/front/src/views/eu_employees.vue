@@ -2,7 +2,7 @@
     <div class="eu-employees">
         <EUEmployee
             v-for="employee of employees"
-            :key="employee._id"
+            :key="employee.id"
             :employee="employee"
         />
         <div class="eu-employees__buttons">
@@ -36,11 +36,11 @@
                         },
                         {
                             text: 'Добавить метрику',
-                            function: addMetrics
+                            function: addMeasure
                         },
                         {
                             text: 'Удалить метрику',
-                            function: deleteMetrics
+                            function: deleteMeasures
                         }
                     ]
                 }"
@@ -70,9 +70,6 @@ export default {
         ]),
         ...mapGetters('employees', ['isNoEmployeesToDelete'])
     },
-    created() {
-        this.getEmployees();
-    },
     methods: {
         addEmployee() {
             this.showModal(MODAL_TYPES.ADD_EMPLOYEE);
@@ -80,14 +77,13 @@ export default {
         initEmployeeDeletion() {
             this.MUTATION_INIT_EMPLOYEES_DELETION();
         },
-        addMetrics() {
-            this.showModal(MODAL_TYPES.ADD_METRICS);
+        addMeasure() {
+            this.showModal(MODAL_TYPES.ADD_MEASURE);
         },
-        deleteMetrics() {
-            this.showModal(MODAL_TYPES.DELETE_METRICS);
+        deleteMeasures() {
+            this.showModal(MODAL_TYPES.DELETE_MEASURE);
         },
         ...mapActions('employees', [
-            'getEmployees',
             'initEmployeesDeletion',
             'cancelEmployeesDeletion',
             'deleteEmployees'

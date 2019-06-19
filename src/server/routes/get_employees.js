@@ -1,6 +1,6 @@
-const { Employee } = require('../models');
+import { Employee } from '$models';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const { name } = req.query;
     if (name) {
         const employee = await Employee.findOne({ name });

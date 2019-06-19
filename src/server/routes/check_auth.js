@@ -1,19 +1,12 @@
-const { User } = require('../models');
+import jwt from 'jsonwebtoken';
 
-module.exports = async (req, res, next) => {
-    if (req.baseUrl === '/api/login') {
-        next();
-        return;
-    }
+import { TOKEN_SECRET } from '$constants';
 
+export default async (req, res, next) => {
     const { eu_token: token } = req.cookies;
-    if (token) {
-        const user = await User.findOne({ token });
-        if (user) {
-            next();
-            return;
-        }
+    if (jwt.verify(token, TOKEN_SECRET)) {
+        next();
+    } else {
+        res.status(401).send('unauthorized');
     }
-
-    res.status(401).send('unauthorized');
 };

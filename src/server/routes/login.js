@@ -1,12 +1,10 @@
-const passwordHash = require('password-hash');
-const tokenGenerator = require('token-generator')({
-    salt: 'kowalskyanalysis',
-    timestampMap: 'agvh5454da'
-});
+import passwordHash from 'password-hash';
+import jwt from 'jsonwebtoken';
 
-const { User } = require('../models');
+import { User } from '$models';
+import { TOKEN_SECRET } from '$constants';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const { login, pwd } = req.body;
     if (
         !login ||
@@ -28,7 +26,12 @@ module.exports = async (req, res) => {
         return;
     }
 
-    user.token = tokenGenerator.generate();
+    const token = jwt.sign(
+        { id: user._id },
+        TOKEN_SECRET
+    );
+
+    user.token = token;
     await user.save();
 
     const cookieOptions = {

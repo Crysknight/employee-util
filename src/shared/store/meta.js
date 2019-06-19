@@ -1,0 +1,1 @@
+export default { namespaced: true };

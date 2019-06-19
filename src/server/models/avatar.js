@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import File from './file';
+
 const { Schema } = mongoose;
-const File = require('./file');
 
 const avatarSchema = Schema({
     employee: {
@@ -9,4 +10,4 @@ const avatarSchema = Schema({
     }
 });
 
-module.exports = File.discriminator('Avatar', avatarSchema);
+export default File.discriminator('Avatar', avatarSchema);

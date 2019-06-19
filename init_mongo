@@ -1,14 +1,14 @@
 vagrant ssh
 sudo mongo
 use admin
-db.createUser({ user: "crysknife", pwd: "Adipisc3..Eli7", roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ] })
+db.createUser({ user: "crysknife", pwd: "adipisce", roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ] })
 ctrl + C
 sudo systemctl stop mongod.service
 sudo vim /etc/mongod.conf
 change security: authorization: enabled
 :wq
 sudo systemctl start mongod.service
-sudo mongo admin -u crysknife -p Adipisc3..Eli7
+sudo mongo admin -u crysknife -p adipisce
 use employeeUtil
 db.testCollection.insertOne({ x: 1 })
 db.createUser({ user: "app", pwd: "jtr5E", roles: [{ role: "readWrite", db: "employeeUtil" }] })

@@ -1,6 +1,6 @@
-const { Skill, Employee } = require('../models');
+import { Employee, Skill } from '$models';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const { skillId } = req.body;
 
     const skill = await Skill.findById(skillId);

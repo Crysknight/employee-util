@@ -1,11 +1,13 @@
-const formidable = require('formidable');
-const path = require('path');
-const { ObjectId } = require('mongoose').Types;
+import path from 'path';
+import mongoose from 'mongoose';
+import formidable from 'formidable';
 
-const { Avatar, Employee } = require('../models');
-const { SERVER_PATH, AVATARS_PATH } = require('../constants');
+import { Avatar, Employee } from '$models';
+import { SERVER_PATH, AVATARS_PATH } from '$constants';
 
-module.exports = async (req, res) => {
+const { ObjectId } = mongoose.Types;
+
+export default async (req, res) => {
     const form = formidable.IncomingForm();
 
     form.encoding = 'utf-8';
