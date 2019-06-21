@@ -6,7 +6,7 @@ export default {
     initialize({ dispatch }) {
         const options = { root: true };
         dispatch('employees/getEmployees', undefined, options);
-        dispatch('measures/getMeasures', undefined, options);
+        // dispatch('measures/getMeasures', undefined, options);
         console.log('store initialized');
     },
     subscribe({ rootState }, { data: moduleNames, userId }) {

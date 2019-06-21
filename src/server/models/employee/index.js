@@ -1,6 +1,8 @@
-export { default } from './employee';
+import { StandardModel } from '$utils';
 
-export { default as getEmployees } from './get_employees';
-export { default as createEmployee } from './create_employee';
-export { default as deleteEmployees } from './delete_employees';
-export { default as rateEmployee } from './rate_employee';
+import schema from './schema';
+
+const Employee = new StandardModel('Employee', schema);
+global.$Employee = Employee;
+
+export default Employee;

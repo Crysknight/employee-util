@@ -1,0 +1,15 @@
+- employee
+    - getEmployees
+    - createEmployee
+    - deleteEmployees
+    - rateEmployee
+- measure
+    - getMeasures
+    - createMeasure
+    - deleteMeasures
+- file
+- avatar
+- user
+    - login
+    - logout
+    - createUser

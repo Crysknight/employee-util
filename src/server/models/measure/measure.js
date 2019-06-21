@@ -1,13 +1,18 @@
 import mongoose from 'mongoose';
 
-const { Schema } = mongoose;
-
-const measureSchema = Schema({
+const measureSchema = mongoose.Schema({
     name: {
         type: String,
-        unique: true,
         required: true
-    }
+    },
+    measureGroups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MeasureGroup'
+    }],
+    employeeGroups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'EmployeeGroup'
+    }]
 });
 
 export default mongoose.model('Measure', measureSchema);

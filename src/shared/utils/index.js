@@ -1,5 +1,13 @@
 export { default as KeyedSet } from './keyed_set';
 
+export const isObject = value => {
+    return Object.prototype.toString.call(value) === '[object Object]';
+};
+
+export const isArray = value => {
+    return Array.isArray(value);
+};
+
 export const stringRandom = (length = 9) => {
     return Math.random()
         .toString(36)
@@ -23,3 +31,15 @@ export const arrayToggle = (array, value) => {
 };
 
 export const objectClone = object => JSON.parse(JSON.stringify(object));
+
+export const objectIterate = (object, callback) => {
+    Object.keys(object).forEach(key => {
+        const value = object[key];
+
+        callback(object, key, value);
+
+        if (isObject(value) || isArray(value)) {
+            objectIterate(value, callback);
+        }
+    });
+};

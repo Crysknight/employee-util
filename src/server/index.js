@@ -7,11 +7,11 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
-import * as routes from './routes';
-
 import './connection';
 import socketServer from './socket_server';
 import createStore from './store';
+
+import * as routes from './routes';
 
 createStore(socketServer);
 
