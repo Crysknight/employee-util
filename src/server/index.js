@@ -12,6 +12,8 @@ import socketServer from './socket_server';
 import createStore from './store';
 
 import * as routes from './routes';
+import * as models from '$models';
+global.$models = models;
 
 createStore(socketServer);
 

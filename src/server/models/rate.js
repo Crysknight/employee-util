@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const rateSchema = mongoose.Schema({
+import { StandardModel } from '$utils';
+
+const schema = mongoose.Schema({
     employee: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee',
@@ -20,4 +22,4 @@ const rateSchema = mongoose.Schema({
     }
 });
 
-export default mongoose.model('Rate', rateSchema);
+export default new StandardModel('Rate', schema);

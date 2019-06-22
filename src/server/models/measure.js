@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const measureSchema = mongoose.Schema({
+import { StandardModel } from '$utils';
+
+const schema = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -15,4 +17,4 @@ const measureSchema = mongoose.Schema({
     }]
 });
 
-export default mongoose.model('Measure', measureSchema);
+export default new StandardModel('Measure', schema);

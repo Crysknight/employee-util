@@ -1,8 +1,30 @@
-import { StandardModel } from '$utils';
+import mongoose from 'mongoose';
 
-import schema from './schema';
+import { stringRandom } from '$shared/utils';
 
-const Employee = new StandardModel('Employee', schema);
-global.$Employee = Employee;
+import EmployeeModel from './model';
 
-export default Employee;
+const schema = mongoose.Schema({
+    name: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    groups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'EmployeeGroup'
+    }],
+    statuses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'EmployeeStatus'
+    }],
+    login: {
+        type: String,
+        unique: true,
+        default: () => `user_${stringRandom()}`
+    },
+    password: String,
+    token: String
+});
+
+export default new EmployeeModel('Employee', schema);

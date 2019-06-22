@@ -1,10 +1,7 @@
 import {
     Employee,
-    createEmployee,
-    createEmployeeGroup,
-    getEmployeesGroups,
-    // deleteEmployees,
-    // rateEmployee
+    EmployeeGroup,
+    EmployeeStatus
 } from '$models';
 import {
     MUTATION_SET_EMPLOYEES,
@@ -17,10 +14,17 @@ import {
 
 export default {
     async getEmployees({ commit }) {
-        const employees = await Employee.get();
-        const employeesGroups = await getEmployeesGroups();
+        const [
+            employees,
+            employeesGroups,
+            employeesStatuses
+        ] = await Promise.all([
+            Employee.read(),
+            EmployeeGroup.read(),
+            EmployeeStatus.read()
+        ]);
     
-        commit(MUTATION_SET_EMPLOYEES, { employees, employeesGroups });
+        commit(MUTATION_SET_EMPLOYEES, { employees, employeesGroups, employeesStatuses });
     },
     async createEmployee({ commit }, { data: employeeData }) {
         const employee = await createEmployee(employeeData);

@@ -24,14 +24,6 @@ export default class StandardModel {
         return formatted;
     }
 
-    async get(query) {
-        const documents = await this.Model.find(query);
-
-        return documents.map(document => {
-            return this.toClient(document);
-        });
-    }
-
     async create(data) {
         const document = new this.Model(data);
 
@@ -40,12 +32,23 @@ export default class StandardModel {
         return this.toClient(document);
     }
 
+    async read(query) {
+        const documents = await this.Model.find(query);
+
+        return documents.map(document => {
+            return this.toClient(document);
+        });
+    }
+
+    async update(id, data) {
+        const update = { $set: data };
+
+        await this.Model.findByIdAndUpdate(id, update);
+    }
+
     async delete(ids) {
-        const query = {
-            _id: {
-                $in: ids.map(id => mongoose.Types.ObjectId(id))
-            }
-        };
+        const $in = ids.map(id => mongoose.Types.ObjectId(id));
+        const query = { _id: { $in } };
 
         await this.Model.deleteMany(query);
     }

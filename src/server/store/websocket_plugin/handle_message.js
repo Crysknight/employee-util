@@ -16,12 +16,7 @@ export default (message, socket, userData, store) => {
     }
 
     payload.data = rawPayload;
-
-    const { userId, user } = userData;
-    if (userId && user) {
-        payload.userId = userId;
-        payload.user = user;
-    }
+    payload.userData = userData;
 
     const availableActions = Object.keys(store._actions);
     if (!availableActions.includes(type) || DISALLOWED_ACTIONS.includes(type)) {
