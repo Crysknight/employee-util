@@ -3,6 +3,11 @@ import mongoose from 'mongoose';
 import { StandardModel } from '$utils';
 
 const schema = mongoose.Schema({
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Employee',
+        required: true
+    },
     employee: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee',

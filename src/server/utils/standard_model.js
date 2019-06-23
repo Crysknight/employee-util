@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 import { objectIterate } from '$shared/utils';
 
 export default class StandardModel {
-    constructor(name, schema) {
-        this.Model = mongoose.model(name, schema);
+    constructor(name, schema, collectionName) {
+        this.Model = mongoose.model(name, schema, collectionName);
     }
 
     toClient(document) {
@@ -44,6 +44,10 @@ export default class StandardModel {
         const update = { $set: data };
 
         await this.Model.findByIdAndUpdate(id, update);
+        
+        const document = await this.Model.findById(id);
+
+        return document.toClient();
     }
 
     async delete(ids) {

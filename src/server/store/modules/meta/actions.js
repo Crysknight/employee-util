@@ -5,8 +5,12 @@ import socketServer from '$socket_server';
 export default {
     initialize({ dispatch }) {
         const options = { root: true };
-        dispatch('employees/getEmployees', undefined, options);
-        // dispatch('measures/getMeasures', undefined, options);
+        dispatch('employees/readEmployees', undefined, options);
+        dispatch('employeesGroups/readEmployeesGroups', undefined, options);
+        dispatch('employeesStatuses/readEmployeesStatuses', undefined, options);
+        dispatch('measures/readMeasures', undefined, options);
+        dispatch('measuresGroups/readMeasuresGroups', undefined, options);
+        dispatch('rates/readRates', undefined, options);
         console.log('store initialized');
     },
     subscribe({ rootState }, { data: moduleNames, userId }) {

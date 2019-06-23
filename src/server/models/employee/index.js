@@ -12,16 +12,20 @@ const schema = mongoose.Schema({
     },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'EmployeeGroup'
+        ref: 'EmployeesGroup'
     }],
     statuses: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'EmployeeStatus'
+        ref: 'EmployeesStatus'
     }],
     login: {
         type: String,
         unique: true,
         default: () => `user_${stringRandom()}`
+    },
+    avatar: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Avatar'
     },
     password: String,
     token: String

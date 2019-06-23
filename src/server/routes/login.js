@@ -16,10 +16,9 @@ export default async (req, res) => {
         httpOnly: false,
         maxAge: 1000 * 60 * 60 * 48
     };
-    const { token, login, name, id } = employee;
-    res.cookie('eu_token', token, cookieOptions);
-    res.cookie('eu_user', login, cookieOptions);
-    res.cookie('eu_userName', name, cookieOptions);
-    res.cookie('eu_userId', id, cookieOptions);
+    res.cookie('eu_token', employee.token, cookieOptions);
+    res.cookie('eu_user', employee.login, cookieOptions);
+    res.cookie('eu_userName', employee.name, cookieOptions);
+    res.cookie('eu_userId', employee.id, cookieOptions);
     res.status(200).send('ok');
 };

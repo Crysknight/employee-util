@@ -23,9 +23,15 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 include: [
-                    path.resolve(__dirname, 'node_modules/formidable')
+                    path.resolve(__dirname, '../shared')
                 ],
-                loader: 'babel-loader'
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [],
+                        plugins: ['@babel/plugin-proposal-class-properties']
+                    }
+                }
             }
         ]
     },

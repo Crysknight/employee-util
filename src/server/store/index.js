@@ -1,15 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import * as localModules from './modules';
-import getModules from '$shared/store';
+import modules from './modules';
 import websocketPlugin from './websocket_plugin';
 
 Vue.use(Vuex);
 
 export default socketServer => {
     const store = new Vuex.Store({
-        modules: getModules(localModules),
+        modules,
         plugins: [websocketPlugin(socketServer)]
     });
 

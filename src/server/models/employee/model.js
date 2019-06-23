@@ -9,13 +9,13 @@ export default class EmployeeModel extends StandardModel {
     async create(data) {
         const clonedData = this.clonedDataWithPassword(data);
 
-        super.create(clonedData);
+        return super.create(clonedData);
     }
 
     async update(id, data) {
         const clonedData = this.clonedDataWithPassword(data);
 
-        super.update(id, clonedData);
+        return super.update(id, clonedData);
     }
 
     clonedDataWithPassword(data) {

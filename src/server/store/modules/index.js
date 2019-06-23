@@ -1,3 +1,14 @@
-export { default as employees } from './employees';
-export { default as meta } from './meta';
-export { default as measures } from './measures';
+import VuexModuleFactory from '$shared/vuex_module_factory';
+
+import './employees';
+import './employees_groups';
+import './employees_statuses';
+import './measures';
+import './measures_groups';
+import './rates';
+
+import meta from './meta';
+
+VuexModuleFactory.extend('meta', meta);
+
+export default VuexModuleFactory.modules;
