@@ -13,7 +13,7 @@ export default {
         dispatch('rates/readRates', undefined, options);
         console.log('store initialized');
     },
-    subscribe({ rootState }, { data: moduleNames, userId }) {
+    subscribe({ rootState }, { data: moduleNames, userData: { userId } }) {
         const modules = objectClone(rootState);
         Object.keys(modules).forEach(key => {
             if (!moduleNames.includes(key) && key !== moduleNames) {

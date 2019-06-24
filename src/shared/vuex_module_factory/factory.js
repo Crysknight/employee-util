@@ -200,7 +200,61 @@ export default class VuexModuleFactory {
         }
     }
 
-    static createActions(namePlural, Model, extenderActions) {
+    static actionsNames(namePlural, front = false) {
+        const name = stringSingular(namePlural);
+
+        const actionCreate = `create${stringCapitalize(name)}`;
+        const actionRead = `read${stringCapitalize(namePlural)}`;
+        const actionUpdate = `update${stringCapitalize(name)}`;
+        const actionDelete = `delete${stringCapitalize(namePlural)}`;
+
+        const actionsNames = { actionCreate, actionRead, actionUpdate, actionDelete };
+        if (front) {
+            delete actionsNames.actionRead;
+        }
+
+        return actionsNames;
+    }
+
+    static actions(namePlural, actionsNames, socketManager) {
+        return Object.values(actionsNames).reduce((actions, actionName) => {
+            actions[actionName] = function(_context, payload) {
+                const message = JSON.stringify({
+                    payload,
+                    type: `${namePlural}/${actionName}`
+                });
+
+                socketManager.send(message);
+            };
+
+            return actions;
+        }, {});
+    }
+
+    static createActionsFront(socketManager, extenderActions) {
+        Object.values(this.modulesWrappers).forEach(moduleWrapper => {
+            const { namePlural, selfRegistered } = moduleWrapper;
+            if (selfRegistered) {
+                return;
+            }
+
+            const actionsNames = this.actionsNames(namePlural, true);
+            const actions = this.actions(namePlural, actionsNames, socketManager);
+
+            this.extendOne(namePlural, { actions });
+        });
+
+        if (extenderActions) {
+            Object.keys(extenderActions).forEach(namePlural => {
+                const actionsNames = extenderActions[namePlural];
+                const actions = this.actions(namePlural, actionsNames, socketManager);
+
+                this.extendOne(namePlural, { actions });
+            });
+        }
+    }
+
+    static createActionsServer(namePlural, Model, extenderActions) {
         const moduleWrapper = this.modulesWrappers[namePlural];
         const {
             MUTATION_CREATE,
@@ -209,11 +263,12 @@ export default class VuexModuleFactory {
             MUTATION_DELETE
         } = moduleWrapper;
 
-        const name = stringSingular(namePlural);
-        const actionCreate = `create${stringCapitalize(name)}`;
-        const actionRead = `read${stringCapitalize(namePlural)}`;
-        const actionUpdate = `update${stringCapitalize(name)}`;
-        const actionDelete = `delete${stringCapitalize(namePlural)}`;
+        const {
+            actionCreate,
+            actionRead,
+            actionUpdate,
+            actionDelete
+        } = this.actionsNames(namePlural);
 
         const actions = {
             async [actionCreate]({ commit }, { data: itemData }) {

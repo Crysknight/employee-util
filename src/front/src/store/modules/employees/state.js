@@ -1,4 +1,4 @@
-export default () => ({
+export default {
     isDeleteModeOn: false,
     employeesToDelete: []
-});
+};

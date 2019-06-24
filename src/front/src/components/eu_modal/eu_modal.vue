@@ -23,7 +23,7 @@ export default {
         modalComponent() {
             return MODAL_TYPES[this.currentModal.type] || this.currentModal.type;
         },
-        ...mapGetters('interface', ['currentModal'])
+        ...mapGetters('appInterface', ['currentModal'])
     },
     created() {
         this.setEvents();
@@ -48,7 +48,7 @@ export default {
                 this.hideModal();
             }
         },
-        ...mapActions('interface', ['hideModal'])
+        ...mapActions('appInterface', ['hideModal'])
     }
 };
 </script>

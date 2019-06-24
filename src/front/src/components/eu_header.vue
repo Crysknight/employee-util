@@ -29,7 +29,7 @@ export default {
         toggleMenu() {
             this.MUTATION_TOGGLE_MENU();
         },
-        ...mapMutations('interface', [MUTATION_TOGGLE_MENU]),
+        ...mapMutations('appInterface', [MUTATION_TOGGLE_MENU]),
         ...mapActions('app', ['logOut'])
     }
 };

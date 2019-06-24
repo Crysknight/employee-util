@@ -12,7 +12,7 @@
 export default {
     name: 'EUMenu',
     computed: {
-        ...mapState('interface', ['menu'])
+        ...mapState('appInterface', ['menu'])
     }
 };
 </script>

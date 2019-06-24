@@ -22,7 +22,7 @@ export default {
                 'eu-message--success': this.type === 'success'
             };
         },
-        ...mapGetters('interface', ['currentMessage'])
+        ...mapGetters('appInterface', ['currentMessage'])
     }
 };
 </script>

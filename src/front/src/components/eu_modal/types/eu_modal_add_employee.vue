@@ -45,7 +45,7 @@ export default {
             this.hideModal();
         },
         ...mapActions('employees', ['createEmployee']),
-        ...mapActions('interface', ['hideModal'])
+        ...mapActions('appInterface', ['hideModal'])
     }
 };
 </script>

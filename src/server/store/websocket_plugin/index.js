@@ -16,7 +16,7 @@ export default socketServer => store => {
         socket.userData = userData;
 
         socket.on('message', message => {
-            handleMessage(message, socket, userData, store);
+            handleMessage(message, socket, store);
         });
     });
 };

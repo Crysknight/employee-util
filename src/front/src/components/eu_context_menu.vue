@@ -70,7 +70,7 @@ export default {
         options() {
             return this.contextMenu.options;
         },
-        ...mapState('interface', ['contextMenu'])
+        ...mapState('appInterface', ['contextMenu'])
     },
     methods: {
         stop(event) {
@@ -80,7 +80,7 @@ export default {
             this.MUTATION_CLOSE_CONTEXT_MENU();
             optionFunction();
         },
-        ...mapMutations('interface', [MUTATION_CLOSE_CONTEXT_MENU])
+        ...mapMutations('appInterface', [MUTATION_CLOSE_CONTEXT_MENU])
     }
 };
 </script>

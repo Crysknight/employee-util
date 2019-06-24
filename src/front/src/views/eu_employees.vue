@@ -88,7 +88,7 @@ export default {
             'cancelEmployeesDeletion',
             'deleteEmployees'
         ]),
-        ...mapActions('interface', ['showModal']),
+        ...mapActions('appInterface', ['showModal']),
         ...mapMutations('employees', [
             MUTATION_INIT_EMPLOYEES_DELETION,
             MUTATION_CANCEL_EMPLOYEES_DELETION

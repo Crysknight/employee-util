@@ -14,7 +14,7 @@ export default {
         }
     },
     async authorize({ commit, dispatch }, { login, password }) {
-        const response = await axios.post('login', { login, pwd: password });
+        const response = await axios.post('login', { login, password });
         if (response === 'ok') {
             router.push({ name: 'home' });
 
@@ -22,7 +22,7 @@ export default {
             commit(MUTATION_SET_USER, user);
         } else {
             dispatch(
-                'interface/showMessage',
+                'appInterface/showMessage',
                 { type: 'error', text: MESSAGE_WRONG_CREDENTIALS },
                 { root: true }
             );

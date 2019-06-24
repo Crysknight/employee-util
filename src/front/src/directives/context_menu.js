@@ -50,12 +50,12 @@ class ContextMenuDirective {
             }
         };
 
-        store.commit(`interface/${MUTATION_OPEN_CONTEXT_MENU}`, menu);
+        store.commit(`appInterface/${MUTATION_OPEN_CONTEXT_MENU}`, menu);
         document.addEventListener('click', this.handleDocumentclick);
     }
 
     handleDocumentclick() {
-        store.commit(`interface/${MUTATION_CLOSE_CONTEXT_MENU}`);
+        store.commit(`appInterface/${MUTATION_CLOSE_CONTEXT_MENU}`);
         document.removeEventListener('click', this.handleDocumentclick);
     }
 }

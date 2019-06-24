@@ -1,6 +1,6 @@
 import Vuex from 'vuex';
 
-import * as modules from './modules';
+import modules from './modules';
 import websocketPlugin from './websocket_plugin';
 import subscriptionPlugin from './subscription_plugin';
 

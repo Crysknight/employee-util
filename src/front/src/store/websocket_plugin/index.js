@@ -13,7 +13,7 @@ export default store => {
         const { currentRoute } = router;
         if (!currentRoute || currentRoute.name !== 'auth') {
             store.dispatch(
-                'interface/showMessage',
+                'appInterface/showMessage',
                 { type: 'error', text: MESSAGE_WEBSOCKET_FAILURE, selfDestroy: 10000 }
             );
         }

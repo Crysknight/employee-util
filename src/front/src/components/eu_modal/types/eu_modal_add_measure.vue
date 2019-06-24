@@ -32,7 +32,7 @@ export default {
             this.hideModal();
         },
         ...mapActions('measures', ['createMeasure']),
-        ...mapActions('interface', ['hideModal'])
+        ...mapActions('appInterface', ['hideModal'])
     }
 };
 </script>

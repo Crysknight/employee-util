@@ -1,6 +1,6 @@
 import { DISALLOWED_ACTIONS } from '$shared/constants';
 
-export default (message, socket, userData, store) => {
+export default (message, socket, store) => {
     let action;
     try {
         action = JSON.parse(message);
@@ -16,7 +16,7 @@ export default (message, socket, userData, store) => {
     }
 
     payload.data = rawPayload;
-    payload.userData = userData;
+    payload.userData = socket.userData;
 
     const availableActions = Object.keys(store._actions);
     if (!availableActions.includes(type) || DISALLOWED_ACTIONS.includes(type)) {
