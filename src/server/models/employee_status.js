@@ -10,4 +10,4 @@ const schema = mongoose.Schema({
     }
 });
 
-export default new StandardModel('MeasuresGroup', schema, 'measuresGroup');
+export default new StandardModel('EmployeeStatus', schema, 'employeeStatuses');

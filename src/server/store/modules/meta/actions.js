@@ -6,10 +6,10 @@ export default {
     initialize({ dispatch }) {
         const options = { root: true };
         dispatch('employees/readEmployees', undefined, options);
-        dispatch('employeesGroups/readEmployeesGroups', undefined, options);
-        dispatch('employeesStatuses/readEmployeesStatuses', undefined, options);
+        dispatch('employeeGroups/readEmployeeGroups', undefined, options);
+        dispatch('employeeStatuses/readEmployeeStatuses', undefined, options);
         dispatch('measures/readMeasures', undefined, options);
-        dispatch('measuresGroups/readMeasuresGroups', undefined, options);
+        dispatch('measureGroups/readMeasureGroups', undefined, options);
         dispatch('rates/readRates', undefined, options);
         console.log('store initialized');
     },

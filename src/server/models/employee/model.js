@@ -6,6 +6,16 @@ import { StandardModel } from '$utils';
 import { TOKEN_SECRET } from '$constants';
 
 export default class EmployeeModel extends StandardModel {
+    toClient(document) {
+        const formatted = super.toClient(document);
+
+        delete formatted.login;
+        delete formatted.password;
+        delete formatted.token;
+
+        return formatted;
+    }
+
     async create(data) {
         const clonedData = this.clonedDataWithPassword(data);
 

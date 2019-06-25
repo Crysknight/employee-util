@@ -1,5 +1,16 @@
 export default {
-    employeesByGroup: state => id => {
-        return state.employees.filter(({ groups }) => groups.includes(id));
+    populatedEmployees(state, getters, rootState, rootGetters) {
+        return state.employees.map(employee => {
+            const populatedEmployee = {
+                ...employee
+            };
+
+            populatedEmployee.measureGroups
+        });
+    },
+    populatedEmployeesByGroup: (state, getters) => id => {
+        return getters.populatedEmployees.filter(
+            ({ groups }) => groups.includes(id)
+        );
     }
 };

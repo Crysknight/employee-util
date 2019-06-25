@@ -1,15 +1,16 @@
 import VuexModuleFactory from './factory';
 
 import employees from './employees';
+import rates from './rates';
 import meta from './meta';
 
 const vuexModules = [
     ['employees', employees],
-    'employeesGroups',
-    'employeesStatuses',
+    'employeeGroups',
+    'employeeStatuses',
     'measures',
-    'measuresGroups',
-    'rates'
+    'measureGroups',
+    ['rates', rates]
 ];
 
 VuexModuleFactory.create(vuexModules);

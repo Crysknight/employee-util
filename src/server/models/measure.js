@@ -7,13 +7,13 @@ const schema = mongoose.Schema({
         type: String,
         required: true
     },
-    measuresGroups: [{
+    measureGroups: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'MeasuresGroup'
+        ref: 'MeasureGroup'
     }],
-    employeesGroups: [{
+    employeeGroups: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'EmployeesGroup'
+        ref: 'EmployeeGroup'
     }]
 });
 

@@ -254,7 +254,24 @@ export default class VuexModuleFactory {
         }
     }
 
-    static createActionsServer(namePlural, Model, extenderActions) {
+    static createActionsServer(payload, Model, extenderActions) {
+        if (typeof payload === 'string' && Model) {
+            this.createModuleActionsServer(payload, Model, extenderActions);
+        } else if (isArray(payload)) {
+            this.createManyModuleActionsServer(payload);
+        }
+    }
+
+    static createManyModuleActionsServer(options) {
+        options.forEach(moduleOptions => {
+            const [namePlural, Model, extenderActions] = moduleOptions;
+            if (namePlural && Model) {
+                this.createModuleActionsServer(namePlural, Model, extenderActions);
+            }
+        });
+    }
+
+    static createModuleActionsServer(namePlural, Model, extenderActions) {
         const moduleWrapper = this.modulesWrappers[namePlural];
         const {
             MUTATION_CREATE,

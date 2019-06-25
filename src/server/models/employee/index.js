@@ -10,13 +10,13 @@ const schema = mongoose.Schema({
         unique: true,
         required: true
     },
-    groups: [{
+    employeeGroups: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'EmployeesGroup'
+        ref: 'EmployeeGroup'
     }],
-    statuses: [{
+    employeeStatuses: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'EmployeesStatus'
+        ref: 'EmployeeStatus'
     }],
     login: {
         type: String,

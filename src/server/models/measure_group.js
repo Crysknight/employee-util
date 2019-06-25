@@ -7,7 +7,11 @@ const schema = mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    employeeGroups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'EmployeeGroup'
+    }]
 });
 
-export default new StandardModel('EmployeesGroup', schema, 'employeesGroup');
+export default new StandardModel('MeasureGroup', schema, 'measureGroup');

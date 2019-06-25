@@ -23,6 +23,7 @@ when checked
     - id.toString() cast
 - SocketManager.prototype.send must process objects into strings
 - passing data to mutations without linked values is inconvenient. Need to find a workaround
+- private data on the model level. Should be excluded in toClient method
 
 #FEATURES
 - grouping for measures (soft, hard skills, etc.). Personal measures
