@@ -1,10 +1,5 @@
 export default {
-    ratesByEmployeeAndMeasure: state => (employeeId, measureId) => {
-        return state.rates.filter(
-            ({ employee, measure }) => (
-                employee === employeeId ||
-                measure === measureId
-            )
-        );
+    ratesByMeasure: state => measureId => {
+        return state.rates.filter(({ measure }) => (measure === measureId));
     }
 };

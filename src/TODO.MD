@@ -24,6 +24,7 @@ when checked
 - SocketManager.prototype.send must process objects into strings
 - passing data to mutations without linked values is inconvenient. Need to find a workaround
 - private data on the model level. Should be excluded in toClient method
+- unsubscribing causes error when not authenticated
 
 #FEATURES
 - grouping for measures (soft, hard skills, etc.). Personal measures
@@ -32,3 +33,4 @@ when checked
 - only one employee deletion by contextmenu
 - logger for server app
 - actions using websocket should be async and resolve only if server confirms the action
+- internationalization i18n

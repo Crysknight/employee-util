@@ -84,6 +84,16 @@ export const arrayToggle = (array, value) => {
     }
 };
 
+export const arrayMatch = (array1, array2, count = 1) => {
+    const matchCount = array1.reduce((matchCount, item) => {
+        return array2.includes(item)
+            ? (matchCount + 1)
+            : matchCount;
+    }, 0);
+
+    return matchCount >= count;
+};
+
 export const objectClone = object => JSON.parse(JSON.stringify(object));
 
 export const objectIterate = (object, callback) => {

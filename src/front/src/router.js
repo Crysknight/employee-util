@@ -11,10 +11,10 @@ const routes = [
         meta: {
             syncStore: [
                 'employees',
-                'employeesGroups',
-                'employeesStatuses',
+                'employeeGroups',
+                'employeeStatuses',
                 'measures',
-                'measuresGroups',
+                'measureGroups',
                 'rates'
             ]
         }

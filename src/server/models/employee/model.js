@@ -9,7 +9,6 @@ export default class EmployeeModel extends StandardModel {
     toClient(document) {
         const formatted = super.toClient(document);
 
-        delete formatted.login;
         delete formatted.password;
         delete formatted.token;
 
