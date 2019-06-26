@@ -25,6 +25,7 @@ when checked
 - passing data to mutations without linked values is inconvenient. Need to find a workaround
 - private data on the model level. Should be excluded in toClient method
 - unsubscribing causes error when not authenticated
+- get rid of monolithic getter for employees. There must be many getters used in components
 
 #FEATURES
 - grouping for measures (soft, hard skills, etc.). Personal measures
