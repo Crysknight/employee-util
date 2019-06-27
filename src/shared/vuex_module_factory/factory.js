@@ -200,7 +200,7 @@ export default class VuexModuleFactory {
         }
     }
 
-    static actionsNames(namePlural, front = false) {
+    static actionsNames(namePlural) {
         const name = stringSingular(namePlural);
 
         const actionCreate = `create${stringCapitalize(name)}`;
@@ -208,15 +208,10 @@ export default class VuexModuleFactory {
         const actionUpdate = `update${stringCapitalize(name)}`;
         const actionDelete = `delete${stringCapitalize(namePlural)}`;
 
-        const actionsNames = { actionCreate, actionRead, actionUpdate, actionDelete };
-        if (front) {
-            delete actionsNames.actionRead;
-        }
-
-        return actionsNames;
+        return { actionCreate, actionRead, actionUpdate, actionDelete };
     }
 
-    static actions(namePlural, actionsNames, socketManager) {
+    static frontActions(namePlural, actionsNames, socketManager) {
         return Object.values(actionsNames).reduce((actions, actionName) => {
             actions[actionName] = function(_context, payload) {
                 const message = JSON.stringify({
@@ -239,7 +234,9 @@ export default class VuexModuleFactory {
             }
 
             const actionsNames = this.actionsNames(namePlural, true);
-            const actions = this.actions(namePlural, actionsNames, socketManager);
+            delete actionsNames.actionRead;
+
+            const actions = this.frontActions(namePlural, actionsNames, socketManager);
 
             this.extendOne(namePlural, { actions });
         });
@@ -247,7 +244,7 @@ export default class VuexModuleFactory {
         if (extenderActions) {
             Object.keys(extenderActions).forEach(namePlural => {
                 const actionsNames = extenderActions[namePlural];
-                const actions = this.actions(namePlural, actionsNames, socketManager);
+                const actions = this.frontActions(namePlural, actionsNames, socketManager);
 
                 this.extendOne(namePlural, { actions });
             });

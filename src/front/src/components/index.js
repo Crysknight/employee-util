@@ -5,3 +5,4 @@ export { default as EUEmployee } from './eu_employee';
 export { default as EUMessage } from './eu_message';
 export { default as EUModal } from './eu_modal';
 export { default as EUMeasure } from './eu_measure';
+export { default as EUEmployeeGroup } from './eu_employee_group';

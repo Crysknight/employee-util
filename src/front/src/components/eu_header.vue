@@ -45,7 +45,7 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        padding: 0 25px;
+        padding: 0 15px;
         background-color: #5c9eff;
         box-shadow: 0 0 5px rgba(100, 100, 100, 0.15);
         color: white;

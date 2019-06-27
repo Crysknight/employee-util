@@ -64,11 +64,17 @@ export default {
     name: 'EUEmployees',
     components: { EUEmployee },
     computed: {
+        employees() {
+            return this.employeesByGroup(this.params.groupId);
+        },
+        ...mapState('route', ['params']),
         ...mapState('employees', [
-            'employees',
             'isDeleteModeOn'
         ]),
-        ...mapGetters('employees', ['isNoEmployeesToDelete'])
+        ...mapGetters('employees', [
+            'employeesByGroup',
+            'isNoEmployeesToDelete'
+        ])
     },
     methods: {
         addEmployee() {
@@ -102,6 +108,7 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
+        flex-wrap: wrap;
         width: 100%;
         margin: 0 -10px;
 
