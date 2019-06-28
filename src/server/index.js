@@ -34,10 +34,6 @@ app.use(cors({
 }));
 
 app.post('/api/login', routes.login);
-
-app.use('/api/*', routes.checkAuth)
-
-app.post('/api/user', routes.createUser);
 app.get('/api/logout', routes.logout);
 
 app.get('/*', (_req, res) => {

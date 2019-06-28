@@ -55,4 +55,12 @@ export default class EmployeeModel extends StandardModel {
 
         return employee.toClient();
     }
+
+    async logout(token) {
+        const employee = await this.Model.findOne({ token });
+        if (employee) {
+            delete employee.token;
+            await employee.save();
+        }
+    }
 }

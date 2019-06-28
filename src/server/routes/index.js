@@ -1,11 +1,2 @@
-export { default as createUser } from './create_user';
 export { default as login } from './login';
 export { default as logout } from './logout';
-export { default as checkAuth } from './check_auth';
-// export { default as getMetrics } from './get_metrics';
-// export { default as createMetrics } from './create_metrics';
-// export { default as deleteMetrics } from './delete_metrics';
-// export { default as createEmployee } from './create_employee';
-// export { default as rate } from './rate';
-// export { default as deleteEmployees } from './delete_employees';
-// export { default as uploadAvatar } from './upload_avatar';

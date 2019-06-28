@@ -1,20 +1,14 @@
-import { User } from '$models';
+import { Employee } from '$models';
 
 export default async (req, res) => {
     const { eu_token: token } = req.cookies;
-    const user = await User.findOne({ token });
-    delete user.token;
+    await Employee.logout(token);
 
     await user.save();
 
-    const cookieOptions = {
-        httpOnly: false,
-        maxAge: 0
-    };
-
-    res.cookie('eu_token', 'delete', cookieOptions);
-    res.cookie('eu_user', 'delete', cookieOptions);
-    res.cookie('eu_userName', 'delete', cookieOptions);
-    res.cookie('eu_userId', 'delete', cookieOptions);
+    res.clearCookie('eu_token');
+    res.clearCookie('eu_user');
+    res.clearCookie('eu_userName');
+    res.clearCookie('eu_userId');
     res.status(200).send('ok');
 };
