@@ -80,9 +80,9 @@ export default {
     .eu-employee {
         display: flex;
         flex-direction: column;
-        width: 25%;
+        width: calc(33.33% - 20px);
         position: relative;
-        margin: 0 10px;
+        margin: 10px;
         padding: 15px;
         border-radius: 2px;
         background-color: white;
