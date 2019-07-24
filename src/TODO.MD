@@ -35,3 +35,5 @@ when checked
 - logger for server app
 - actions using websocket should be async and resolve only if server confirms the action
 - internationalization i18n
+- report section
+- section for hiring employees
