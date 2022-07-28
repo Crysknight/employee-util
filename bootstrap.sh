@@ -2,9 +2,8 @@
 sudo apt-get update
 
 # Install Node.js and NPM
-curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs
-sudo apt-get install -y npm
 
 # Install MongoDB
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
@@ -21,17 +20,18 @@ sudo mongorestore --db admin /vagrant/db/admin
 sudo mongorestore --db employeeUtil /vagrant/db/employeeUtil
 sudo cp /vagrant/db/mongod.conf /etc
 
-# Restarting mongod
+# Restarting mongod with auth
 sudo systemctl stop mongod.service
 sudo systemctl start mongod.service
 
-sudo npm i -g pm2
-sudo npm install -g @vue/cli
+# sudo npm i -g pm2
+# sudo npm i -g @vue/cli
+# sudo npm i -g cross-env
 
-cd /vagrant/src/front
-npm i
-npm run build
+# cd /vagrant/src/front
+# npm i
+# npm run build
 
-cd /vagrant/src/server
-npm i
-npm run prod
+# cd /vagrant/src/server
+# npm i
+# npm run prod
